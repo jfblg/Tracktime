@@ -1,0 +1,12 @@
+{% extends "participants/signup.jinja2" %}
+{% block success %}
+
+<div class="alert alert-success" role="alert">
+    Added to the participants: {{first_name}} {{last_name}}, {{year}}
+</div>
+
+<div class="well well-lg">
+    {{ form }}
+</div>
+
+{% endblock %}
