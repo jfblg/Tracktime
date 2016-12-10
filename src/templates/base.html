@@ -11,7 +11,7 @@
     <title>Template Flask application</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='pic/briefcase.png') }}" type="image/x-icon"/>
 
-    {% include 'dependencies_css.jinja2' %}
+    {% include 'dependencies_css.html' %}
 
 </head>
 <body>
@@ -21,7 +21,7 @@
     {% endblock %}
 
 
-{% include 'dependencies_js.jinja2' %}
+{% include 'dependencies_js.html' %}
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-{% extends "participants/participants.jinja2" %}
+{% extends "participants/participants.html" %}
 {% block signup %}
 
     <div class="form-size">
@@ -13,7 +13,7 @@
                 </div>
                 <div class="panel-body">
 
-                    {% from "participants/_formhelpers.jinja2" import render_field %}
+                    {% from "participants/_formhelpers.html" import render_field %}
                     <form method="post">
                             {{ render_field(form.first_name) }}
                             {{ render_field(form.last_name) }}
