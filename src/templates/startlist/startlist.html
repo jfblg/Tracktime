@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    {% for category in data %}
+
+        {{ category }}<br/><br/>
+
+    {% endfor %}
+</div>
+
+{% endblock %}

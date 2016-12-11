@@ -2,7 +2,7 @@ import xlrd
 import pprint
 from os.path import join, abspath, dirname
 
-from src.models.participants.participants import RunnerModel
+from src.models.participants.participants import ParticipantModel
 
 WB = "registered.xlsx"
 
@@ -19,7 +19,7 @@ def insert_many():
     loaded_data = read_wb(xls_path())
 
     for item in loaded_data:
-        record = RunnerModel(**item)
+        record = ParticipantModel(**item)
         record.save_to_db()
         # print(record.json())
 

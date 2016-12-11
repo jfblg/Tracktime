@@ -4,17 +4,10 @@ from src.models.categories.categories import CategoryModel, CategoryAddForm
 
 categories_blueprint = Blueprint('categories', __name__)
 
+
 @categories_blueprint.route('/list', methods=['GET'])
 def list():
-
-    data = []
-    keys = "category_name year_start year_end".split(" ")
-    cat1 = ["Buben1", "1996", "1996"]
-    dic1 = dict(zip(keys, cat1))
-    data.append(dic1)
-
     loaded_data = [category.json() for category in CategoryModel.list_all()]
-
     return render_template('categories/categories_list.html', data=loaded_data)
 
 

@@ -28,7 +28,7 @@ class RunnerRegistrationForm(Form):
         validators.data_required(message="Required. Please specify number between 1917 and 2017.")])
 
 
-class RunnerModel(db.Model):
+class ParticipantModel(db.Model):
     # SQLAlchemy table definition
     __tablename__ = "participants"
     id = db.Column(db.Integer, primary_key=True)
@@ -63,11 +63,15 @@ class RunnerModel(db.Model):
                 }
 
     @classmethod
-    def find_by_last_name(cls, last_name):
+    def find_by_year(cls, year):
         # 'guery' is a SQLAlchemy query builder
         # SELECT FROM items WHERE name=name LIMIT 1
         # returned data gets converted into ItemModel object
-        return cls.query.filter_by(last_name=last_name).first()
+        return cls.query.filter_by(year=int(year))
+
+    @classmethod
+    def find_by_gender_and_year(cls, gender, year):
+        return cls.query.filter_by(gender=gender, year=year)
 
     def save_to_db(self):
         ''' Function does update and insert to the DB (upserting)
