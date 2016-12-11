@@ -1,25 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <div class="container">
     <div class="dataTable_wrapper">
         <table class="table table-striped table-bordered table-hover" id="dataTables-ap_inventory">
             <thead>
             <tr>
-                <th>Fist Name</th>
-                <th>Last Name</th>
+                <th>Category name</th>
                 <th>Gender</th>
-                <th>Year</th>
-                <th>Email address</th>
+                <th>Start year</th>
+                <th>End year</th>
             </tr>
             </thead>
             <tbody>
             {% for item in data %}
             <tr>
-                <td>{{ item['first_name'] }}</td>
-                <td>{{ item['last_name'] }}</td>
+                <td>{{ item['category_name'] }}</td>
                 <td>{{ item['gender'] }}</td>
-                <td>{{ item['year'] }}</td>
-                <td>{{ item['email_addr'] }}</td>
+                <td>{{ item['year_start'] }}</td>
+                <td>{{ item['year_end'] }}</td>
             </tr>
             {% endfor %}
             </tbody>
@@ -28,7 +27,4 @@
 </div>
 <!-- /.table wrapper -->
 
-
 {% endblock %}
-
-

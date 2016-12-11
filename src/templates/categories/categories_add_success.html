@@ -1,0 +1,11 @@
+{% extends "categories/categories_add.html" %}
+{% block success %}
+
+<div class="alert alert-success" role="alert">
+    Added new category: {{ data['category_name'] }}<br/>
+    Gender:     {{ data['gender'] }}<br/>
+    Start year: {{ data['year_start'] }}<br/>
+    End year:   {{ data['year_end'] }}
+</div>
+
+{% endblock %}

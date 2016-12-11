@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <div class="form-size">
+
+        <div class="row">
+
+            <h1 class="page-header"><i class="fa fa-edit"></i> Add new category</h1>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Add new category
+                </div>
+                <div class="panel-body">
+
+                    {% from "categories/_formhelpers.html" import render_field %}
+                    <form method="post">
+                        {{ render_field(form.category_name) }}
+                        {{ render_field(form.gender) }}
+                        {{ render_field(form.year_start) }}
+                        {{ render_field(form.year_end) }}
+
+                        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Add</button>
+                        <a type="reset" class="btn btn-danger" href="{{ url_for('categories.add') }}"><span
+                                class="glyphicon glyphicon-erase"></span> Cancel</a>
+                    </form>
+                </div>
+                <!-- panel body-->
+            </div>
+            <!-- panel -->
+        </div>
+        <!-- row -->
+        {% block success %}
+        {% endblock %}
+
+    </div>
+    <!-- form-size -->
+
+</div>
+
+{% endblock %}

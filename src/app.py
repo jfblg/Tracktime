@@ -20,9 +20,11 @@ def home():
     return render_template('home.html')
 
 from src.models.participants.views import participants_blueprint
+from src.models.categories.views import categories_blueprint
 # add another models
 
 app.register_blueprint(participants_blueprint, url_prefix="/signup")
+app.register_blueprint(categories_blueprint, url_prefix="/categories")
 # register another blueprints
 
 

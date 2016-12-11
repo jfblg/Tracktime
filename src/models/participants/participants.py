@@ -21,7 +21,7 @@ class RunnerRegistrationForm(Form):
 
     gender = StringField('Gender', [
         validators.Length(min=2, max=6),
-        validators.data_required(message="Required")])
+        validators.data_required(message="Required. 'boy' or 'girl'")])
 
     year = IntegerField('Year of birth', [
         validators.NumberRange(min=1917, max=2017),
@@ -46,20 +46,20 @@ class RunnerModel(db.Model):
     # store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
     # store = db.relationship('StoreModel')
 
-    def __init__(self, first_name, last_name, email_addr, gender, year):
+    def __init__(self, first_name, last_name, gender, year, email_addr):
         self.first_name = first_name
         self.last_name = last_name
-        self.email_addr = email_addr
         self.gender = gender
         self.year = int(year)
+        self.email_addr = email_addr
 
     def json(self):
         return {
                 "first_name": self.first_name,
                 "last_name": self.last_name,
-                "email_addr": self.email_addr,
                 "gender": self.gender,
-                "year": self.year
+                "year": self.year,
+                "email_addr": self.email_addr
                 }
 
     @classmethod
