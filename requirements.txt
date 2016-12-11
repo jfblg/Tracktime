@@ -1,2 +1,3 @@
 Flask==0.11.1
 FlaskWTF==0.13.1
+xlrd==1.0.0

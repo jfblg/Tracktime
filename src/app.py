@@ -17,7 +17,7 @@ def create_table():
 
 @app.route('/')
 def home():
-    return render_template('home.jinja2')
+    return render_template('home.html')
 
 from src.models.participants.views import participants_blueprint
 # add another models

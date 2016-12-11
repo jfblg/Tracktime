@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, sessions, redirect, url_for
 from src.models.participants.participants import RunnerModel, RunnerRegistrationForm
+from src.models.participants.mass_import_xls import insert_many
 from src.common.database import db
 
 # Not all imports from above are actually used.
@@ -9,17 +10,19 @@ participants_blueprint = Blueprint("participants", __name__)
 
 @participants_blueprint.route('/', methods=['GET', 'POST'])
 def index():
+    insert_many()
     form = RunnerRegistrationForm(request.form)
-    print(form.validate())
     if request.method == 'POST' and form.validate():
         first_name = request.form['first_name'].strip()
         last_name = request.form['last_name'].strip()
         email_addr = request.form['email_addr'].strip()
+        gender = "male"
         year = request.form['year'].strip()
 
         runner = RunnerModel(first_name=first_name.title(),
                              last_name=last_name.title(),
                              email_addr=email_addr.lower(),
+                             gender=gender,
                              year=year)
         runner.save_to_db()
         return render_template('participants/signup_success.html',

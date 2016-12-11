@@ -9,21 +9,23 @@ from sqlalchemy import exc
 class RunnerRegistrationForm(Form):
     first_name = StringField('First name', [
         validators.Length(min=2, max=25),
-        validators.DataRequired(message="Required")
-    ])
+        validators.DataRequired(message="Required")])
 
     last_name = StringField('Last name', [
         validators.Length(min=2, max=25)])
 
+
     email_addr = EmailField('Email address',[
         validators.Length(min=6, max=35),
-        validators.data_required(message="Required")
-    ])
+        validators.data_required(message="Required")])
+
+    gender = StringField('Gender', [
+        validators.Length(min=2, max=6),
+        validators.data_required(message="Required")])
 
     year = IntegerField('Year of birth', [
         validators.NumberRange(min=1917, max=2017),
-        validators.data_required(message="Required. Please specify number between 1917 and 2017.")
-    ])
+        validators.data_required(message="Required. Please specify number between 1917 and 2017.")])
 
 
 class RunnerModel(db.Model):
@@ -33,6 +35,7 @@ class RunnerModel(db.Model):
     first_name = db.Column(db.String(80))
     last_name = db.Column(db.String(80))
     email_addr = db.Column(db.String(100))
+    gender = db.Column(db.String(6))
     year = db.Column(db.Integer)
     __table_args__ = (db.UniqueConstraint('first_name',
                                        'last_name',
@@ -43,10 +46,11 @@ class RunnerModel(db.Model):
     # store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
     # store = db.relationship('StoreModel')
 
-    def __init__(self, first_name, last_name, email_addr, year):
+    def __init__(self, first_name, last_name, email_addr, gender, year):
         self.first_name = first_name
         self.last_name = last_name
         self.email_addr = email_addr
+        self.gender = gender
         self.year = int(year)
 
     def json(self):
@@ -54,6 +58,7 @@ class RunnerModel(db.Model):
                 "first_name": self.first_name,
                 "last_name": self.last_name,
                 "email_addr": self.email_addr,
+                "gender": self.gender,
                 "year": self.year
                 }
 
