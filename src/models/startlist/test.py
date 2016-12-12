@@ -1,6 +1,5 @@
 from itertools import cycle
 
-
 def createGenerator():
     mylist = range(1,4)
     for i in mylist:
