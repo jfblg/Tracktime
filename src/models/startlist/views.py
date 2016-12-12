@@ -9,5 +9,5 @@ startlist_blueprint = Blueprint('startlist', __name__)
 
 @startlist_blueprint.route('/', methods=['GET', 'POST'])
 def index():
-    data = StartlistModel.join_startlist()
+    data = [item for item in StartlistModel.join_startlist()]
     return render_template('startlist/startlist.html', data=data)

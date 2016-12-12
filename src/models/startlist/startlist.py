@@ -56,17 +56,24 @@ class StartlistModel(db.Model):
         #      .order_by(CategoryModel.id)\
         #      .order_by(ParticipantModel.id)\
         #      .all()
-
-        return db.session.query(StartlistModel)\
-            .join(CategoryModel)\
-            .join(ParticipantModel)\
-            .options(
-                db.contains_eager(StartlistModel.start_position)\
-                .db.contains_eager(CategoryModel.category_name)\
-                .db.contains_eager(ParticipantModel.first_name)
-            )\
-            .filter(CategoryModel.id == cls.category_id)\
-            .all()
+        #
+        #     return db.session.query(StartlistModel)\
+        #         .join(CategoryModel)\
+        #         .join(ParticipantModel)\
+        #         .options(
+        #             db.contains_eager(StartlistModel.start_position)\
+        #             .db.contains_eager(CategoryModel.category_name)\
+        #             .db.contains_eager(ParticipantModel.first_name)
+        #         )\
+        #         .filter(CategoryModel.id == cls.category_id)\
+        #         .all()
+        #
+        # q = Session.query(User, Document, DocumentPermissions).filter(User.email == Document.author). \
+        #     filter(Document.name == DocumentPermissions.document). \
+        #     filter(User.email == 'someemail').all()
+        return db.session.query(StartlistModel, CategoryModel).\
+                filter(CategoryModel.id == cls.category_id).\
+                all()
 
     @classmethod
     def list_all(cls):
