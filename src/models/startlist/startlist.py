@@ -25,6 +25,7 @@ class StartlistModel(db.Model):
         self.start_position = start_position
         self.start_round = start_round
         # TODO add time variable
+        # TODO add category index number
 
     def json(self):
         return {
@@ -47,33 +48,23 @@ class StartlistModel(db.Model):
             db.session().rollback()
 
     @classmethod
-    def join_startlist(cls):
-        # return db.session.query(StartlistModel, CategoryModel, ParticipantModel)\
-        #     .join(CategoryModel)\
-        #     .join(ParticipantModel)\
-        #     .filter(CategoryModel.id == cls.category_id)\
-        #     .filter(ParticipantModel == cls.participant_id)\
-        #      .order_by(CategoryModel.id)\
-        #      .order_by(ParticipantModel.id)\
-        #      .all()
-        #
-        #     return db.session.query(StartlistModel)\
-        #         .join(CategoryModel)\
-        #         .join(ParticipantModel)\
-        #         .options(
-        #             db.contains_eager(StartlistModel.start_position)\
-        #             .db.contains_eager(CategoryModel.category_name)\
-        #             .db.contains_eager(ParticipantModel.first_name)
-        #         )\
-        #         .filter(CategoryModel.id == cls.category_id)\
-        #         .all()
-        #
-        # q = Session.query(User, Document, DocumentPermissions).filter(User.email == Document.author). \
-        #     filter(Document.name == DocumentPermissions.document). \
-        #     filter(User.email == 'someemail').all()
-        return db.session.query(StartlistModel, CategoryModel).\
-                filter(CategoryModel.id == cls.category_id).\
+    def join_startlist(cls, category_id):
+        return db.session.query(StartlistModel, CategoryModel, ParticipantModel).\
+                filter(cls.category_id == CategoryModel.id).\
+                filter(cls.participant_id == ParticipantModel.id). \
+                order_by(cls.id).\
                 all()
+
+    @classmethod
+    def join_experiment(cls, category_id):
+        return db.session.query(StartlistModel)\
+                .join(StartlistModel.category_id)\
+                .options(contains_eager(StartlistModel.category_id))\
+                .filter(StartlistModel.category_id == category_id)
+
+    @classmethod
+    def get_startlist_by_category_join_participants(cls, category_id):
+        return cls.query.filter_by(category_id=category_id)
 
     @classmethod
     def list_all(cls):
