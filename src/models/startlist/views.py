@@ -10,15 +10,17 @@ startlist_blueprint = Blueprint('startlist', __name__)
 
 @startlist_blueprint.route('/', methods=['GET', 'POST'])
 def index():
+    output = []
 
-    cli = StartlistModel.join_experiment(4)
-    print(cli)
+    categories = [(cat_id, cat_name) for cat_id, cat_name in CategoryModel.list_categories_ordered()]
 
-    # data = [item for item in StartlistModel.join_startlist()]
-    output = {}
-    categories = [item for item in CategoryModel.list_all()]
-    for category in categories:
-        output[category.category_name] = [item for item in StartlistModel.join_startlist(category.id)]
+    for cat_id, cat_name in categories:
+        output_emb = []
+        output_emb.append(cat_name)
 
-    pprint.pprint(output)
+        cat_participants_names = [(start_table, part_table) for start_table, part_table in StartlistModel.get_startlist_by_category_with_names(cat_id)]
+        output_emb.append(cat_participants_names)
+
+        output.append(output_emb)
+
     return render_template('startlist/startlist.html', data=output)

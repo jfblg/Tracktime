@@ -26,11 +26,16 @@ class CategoryModel(db.Model):
     # SQLAlchemy table definition
     __tablename__ = "categories"
     id = db.Column(db.Integer, primary_key=True)
-    category_name = db.Column(db.String(20))
-    gender = db.Column(db.String(6))
-    year_start = db.Column(db.Integer)
-    year_end = db.Column(db.Integer)
+    category_name = db.Column(db.String(20), nullable=False)
+    gender = db.Column(db.String(6), nullable=False)
+    year_start = db.Column(db.Integer, nullable=False)
+    year_end = db.Column(db.Integer, nullable=False)
     __table_args__ = (db.UniqueConstraint('category_name', 'gender', 'year_start', 'year_end'),)
+
+    startlist = db.relationship("StartlistModel",
+                             back_populates='category',
+                             cascade="all, delete, delete-orphan")
+
 
     # Foreign key definition. For the future
     # store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
@@ -66,6 +71,15 @@ class CategoryModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+
+    @classmethod
+    def list_categories_ordered(cls):
+        return db.session.query(CategoryModel.id, CategoryModel.category_name).\
+                order_by(CategoryModel.id).\
+                all()
+
     @classmethod
     def list_all(cls):
         return cls.query.all()
+
+

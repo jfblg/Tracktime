@@ -5,7 +5,7 @@
 
     {% for category in data %}
 
-    <h1>{{ category }} </h1>
+    <h1>{{ category[0] }} </h1>
 
     <div class="row">
         <div class="dataTable_wrapper">
@@ -20,7 +20,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for start_table, cat_table, part_table in data[category] %}
+                {% for start_table, part_table in category[1] %}
                 <tr>
                     <td>{{ start_table.id }}</td>
                     <td>{{ part_table.first_name }}</td>

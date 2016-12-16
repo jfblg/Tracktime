@@ -29,22 +29,21 @@ class RunnerRegistrationForm(Form):
 
 
 class ParticipantModel(db.Model):
-    # SQLAlchemy table definition
     __tablename__ = "participants"
+
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(80))
-    last_name = db.Column(db.String(80))
-    email_addr = db.Column(db.String(100))
-    gender = db.Column(db.String(6))
-    year = db.Column(db.Integer)
-    __table_args__ = (db.UniqueConstraint('first_name',
-                                       'last_name',
-                                       'year'),)
+    first_name = db.Column(db.String(80), nullable=False)
+    last_name = db.Column(db.String(80), nullable=False)
+    email_addr = db.Column(db.String(100), nullable=False)
+    gender = db.Column(db.String(6), nullable=False)
+    year = db.Column(db.Integer, nullable=False)
 
+    startlist = db.relationship("StartlistModel",
+                             back_populates='participants',
+                             cascade="all, delete, delete-orphan")
 
-    # Foreign key definition. For the future
-    # store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
-    # store = db.relationship('StoreModel')
+    __table_args__ = (db.UniqueConstraint('first_name', 'last_name', 'year'),)
+
 
     def __init__(self, first_name, last_name, gender, year, email_addr):
         self.first_name = first_name
