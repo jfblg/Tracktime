@@ -16,6 +16,7 @@ class StartlistModel(db.Model):
     participant_id = db.Column(db.Integer, db.ForeignKey('participants.id'))
     start_position = db.Column(db.Integer)
     start_round = db.Column(db.Integer)
+    time_measured = db.Column(db.Interval, nullable=True)
 
     category = db.relationship("CategoryModel", back_populates="startlist")
     participants = db.relationship("ParticipantModel", back_populates="startlist")
@@ -54,7 +55,10 @@ class StartlistModel(db.Model):
     # WORKING - DO NOT TOUCH
     @classmethod
     def get_startlist_by_category(cls, category_id):
-        return db.session.query(StartlistModel).filter_by(category_id=category_id).order_by(StartlistModel.participant_id).all()
+        return db.session.query(StartlistModel).\
+                filter_by(category_id=category_id).\
+                order_by(StartlistModel.participant_id).\
+                all()
 
     # WORKING - DO NOT TOUCH
     @classmethod
@@ -64,6 +68,10 @@ class StartlistModel(db.Model):
                 filter(StartlistModel.category_id == category_id).\
                 order_by(ParticipantModel.id).\
                 all()
+
+    @classmethod
+    def get_by_participant_id(cls, participant_id):
+        return db.session.query(StartlistModel).filter_by(participant_id=participant_id).one()
 
 
     @classmethod

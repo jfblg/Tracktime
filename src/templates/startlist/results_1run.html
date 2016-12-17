@@ -15,8 +15,6 @@
                     <th>ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Round</th>
-                    <th>Start line</th>
                     <th>Measured time 1st run</th>
                 </tr>
                 </thead>
@@ -26,8 +24,11 @@
                     <td>{{ start_table.id }}</td>
                     <td>{{ part_table.first_name }}</td>
                     <td>{{ part_table.last_name }}</td>
-                    <td>{{ start_table.start_round }}</td>
-                    <td>{{ start_table.start_position }}</td>
+                    {% if start_table.time_measured %}
+                        <td>{{ start_table.time_measured }}</td>
+                    {% else %}
+                        <td>Not measured yet</td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -37,9 +38,7 @@
     <br/><br/><br/>
     {% endfor %}
 
-
 </div>
-
 
         <br/>
 </div>

@@ -11,6 +11,7 @@ participants_blueprint = Blueprint("participants", __name__)
 def index():
     # TODO - rework later. Add import from file functionality
     insert_many()
+
     form = RunnerRegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
         first_name = request.form['first_name'].strip()
