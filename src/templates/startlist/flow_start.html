@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+
+    <h1>Select one category and specify number of start lines:</h1>
+
+    <div>
+        <form method="POST">
+
+            {% for cat_id, cat_name in categories %}
+
+            <input type="radio" name="category" id="{{ cat_name }}" value="{{ cat_id }}">
+            <label for="{{ cat_name }}">{{ cat_name }}</label><br>
+
+            {% endfor %}
+
+            <br>
+            <br>
+
+            Number of lines
+            <select name="start_lines" id="start_lines">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6" selected="selected">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <br>
+            <br>
+
+            <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Start</button>
+
+        </form>
+    </div>
+
+
+    {% block success %}
+    {% endblock %}
+</div>
+
+{% endblock %}

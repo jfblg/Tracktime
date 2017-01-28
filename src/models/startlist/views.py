@@ -15,21 +15,18 @@ startlist_blueprint = Blueprint('startlist', __name__)
 @startlist_blueprint.route('/', methods=['GET', 'POST'])
 def startlist():
     # Uncomment to re-process the start list. Working only when the start list is empty.
-    process(6)
+    process(4)
     output = []
 
-    print(time.gmtime(0))
-    print(time.time())
-    print(time.clock())
-
-    time_d = datetime.datetime.now() - datetime.timedelta(hours=24)
-    print(datetime.timedelta(hours=1, minutes=15, milliseconds=1456))
-
-    time1 = datetime.datetime.strptime('12:34.43', '%M:%S.%f')
-    time2 = datetime.datetime.strptime('12:34.4332', '%M:%S.%f')
-    print(time1 < time2)
-
-
+    # print(time.gmtime(0))
+    # print(time.time())
+    # print(time.clock())
+    # time_d = datetime.datetime.now() - datetime.timedelta(hours=24)
+    # print(datetime.timedelta(hours=1, minutes=15, milliseconds=1456))
+    #
+    # time1 = datetime.datetime.strptime('12:34.43', '%M:%S.%f')
+    # time2 = datetime.datetime.strptime('12:34.4332', '%M:%S.%f')
+    # print(time1 < time2)
 
     categories = [(cat_id, cat_name) for cat_id, cat_name in CategoryModel.list_categories_ordered()]
 
@@ -44,6 +41,7 @@ def startlist():
 
     return render_template('startlist/startlist.html', data=output)
 
+
 @startlist_blueprint.route('/results', methods=['GET', 'POST'])
 def results():
     # Uncomment to re-process the start list. Working only when the start list is empty.
@@ -51,7 +49,7 @@ def results():
     categories = [(cat_id, cat_name) for cat_id, cat_name in CategoryModel.list_categories_ordered()]
 
     for cat_id, cat_name in categories:
-        output_emb = []
+        output_emb = list()
         output_emb.append(cat_name)
 
         cat_participants_names = [(start_table, part_table) for start_table, part_table in StartlistModel.get_startlist_by_category_with_names(cat_id)]
@@ -92,3 +90,14 @@ def add_time():
         return render_template('startlist/add_time_added.html', time=time_converted)
 
     return render_template('startlist/add_time.html')
+
+@startlist_blueprint.route('/flow', methods=['GET', 'POST'])
+def flow_start():
+    defined_categories = [(category.id, category.category_name) for category in CategoryModel.list_all()]
+    if request.method == 'POST':
+        start_lines = request.form['start_lines']
+        selected_category = request.form['category']
+        print(start_lines)
+        print(selected_category)
+
+    return render_template('startlist/flow_start.html', categories=defined_categories)
