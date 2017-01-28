@@ -91,13 +91,15 @@ def add_time():
 
     return render_template('startlist/add_time.html')
 
-@startlist_blueprint.route('/flow', methods=['GET', 'POST'])
+@startlist_blueprint.route('/create', methods=['GET', 'POST'])
 def flow_start():
     defined_categories = [(category.id, category.category_name) for category in CategoryModel.list_all()]
     if request.method == 'POST':
-        start_lines = request.form['start_lines']
-        selected_category = request.form['category']
-        print(start_lines)
-        print(selected_category)
+        startlist_name = request.form['startlist_name'].strip()
+        startlist_lines = request.form['startlist_lines']
+        startlist_category = request.form['startlist_category']
+        print(startlist_name)
+        print(startlist_lines)
+        print(startlist_category)
 
-    return render_template('startlist/flow_start.html', categories=defined_categories)
+    return render_template('startlist/create_new_list.html', categories=defined_categories)

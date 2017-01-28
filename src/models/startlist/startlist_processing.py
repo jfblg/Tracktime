@@ -12,7 +12,7 @@ def main():
 
 
 def range_generator(n):
-    mylist = range(1,n+1)
+    mylist = range(1, n+1)
     for i in mylist:
         yield i
 
