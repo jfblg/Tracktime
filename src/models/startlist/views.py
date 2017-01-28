@@ -1,11 +1,12 @@
 from flask import Blueprint, request, render_template, sessions, redirect, url_for
 from src.models.categories.categories import CategoryModel, CategoryAddForm
-from src.models.startlist.startlist import StartlistModel
-from src.models.startlist.startlist_processing import *
+from src.models.startlist.startlist import StartlistModel, StartlistNameModel
+import src.models.startlist.startlist_processing as startlist_processing
 from sqlalchemy import Time
 
 import time
 import datetime
+import random
 
 import pprint
 
@@ -15,7 +16,7 @@ startlist_blueprint = Blueprint('startlist', __name__)
 @startlist_blueprint.route('/', methods=['GET', 'POST'])
 def startlist():
     # Uncomment to re-process the start list. Working only when the start list is empty.
-    process(4)
+    # process(4)
     output = []
 
     # print(time.gmtime(0))
@@ -91,15 +92,57 @@ def add_time():
 
     return render_template('startlist/add_time.html')
 
-@startlist_blueprint.route('/create', methods=['GET', 'POST'])
+@startlist_blueprint.route('/create', methods=['GET'])
 def flow_start():
     defined_categories = [(category.id, category.category_name) for category in CategoryModel.list_all()]
+    return render_template('startlist/create_new_list.html', categories=defined_categories)
+
+
+@startlist_blueprint.route('/startlist_created', methods=['POST'])
+def create_startlist():
     if request.method == 'POST':
         startlist_name = request.form['startlist_name'].strip()
         startlist_lines = request.form['startlist_lines']
         startlist_category = request.form['startlist_category']
-        print(startlist_name)
-        print(startlist_lines)
-        print(startlist_category)
 
-    return render_template('startlist/create_new_list.html', categories=defined_categories)
+        # print(startlist_name)
+        # print(startlist_lines)
+        # print(startlist_category)
+
+        new_startlist = StartlistNameModel(startlist_name, startlist_lines)
+        new_startlist.save_to_db()
+
+        print(new_startlist.id)
+        startlist_processing.process(new_startlist.id, startlist_category, int(startlist_lines))
+
+    return render_template('startlist/startlist_category.html')
+
+
+@startlist_blueprint.route('/time', methods=['GET', 'POST'])
+def time_random():
+
+    random_times = []
+    random_times.append(generate_time())
+    random_times.append(generate_time())
+    random_times.append(generate_time())
+    random_times.append(generate_time())
+
+    print(random_times)
+
+    if request.method == 'POST':
+        pass
+
+    return render_template('startlist/time.html', random_times=random_times)
+
+
+def generate_time():
+    """
+    Generates a pseudo-random time and returns it as a string
+    Only temporary solution until not integrated with timy
+
+    :return:
+    string
+    """
+    minutes = random.randrange(12, 15)
+    seconds = round(random.uniform(10.0, 60.0), 4)
+    return "{0:01d}:{1}".format(minutes, seconds)

@@ -71,6 +71,9 @@ class CategoryModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    @classmethod
+    def find_by_id(cls, category_id):
+        return db.session.query(cls).filter_by(id=category_id).one()
 
     @classmethod
     def list_categories_ordered(cls):
