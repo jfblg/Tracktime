@@ -44,6 +44,10 @@ class StartlistNameModel(db.Model):
         except exc.IntegrityError as e:
             db.session().rollback()
 
+    @classmethod
+    def list_all(cls):
+        return cls.query.all()
+
 
 class StartlistModel(db.Model):
     # SQLAlchemy table definition
@@ -109,6 +113,15 @@ class StartlistModel(db.Model):
                 filter(StartlistModel.participant_id == ParticipantModel.id).\
                 filter(StartlistModel.category_id == category_id).\
                 order_by(ParticipantModel.id).\
+                all()
+
+
+    @classmethod
+    def get_records_by_startlist_id(cls, startlist_name_id):
+        return db.session.query(StartlistModel, ParticipantModel).\
+                filter(StartlistModel.participant_id == ParticipantModel.id).\
+                filter(StartlistModel.startlist_id == startlist_name_id).\
+                order_by(StartlistModel.id).\
                 all()
 
     @classmethod

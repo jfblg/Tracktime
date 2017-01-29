@@ -29,16 +29,32 @@ def startlist():
     # time2 = datetime.datetime.strptime('12:34.4332', '%M:%S.%f')
     # print(time1 < time2)
 
-    categories = [(cat_id, cat_name) for cat_id, cat_name in CategoryModel.list_categories_ordered()]
+    startlists = [startlist_def for startlist_def in StartlistNameModel.list_all()]
 
-    for cat_id, cat_name in categories:
-        output_emb = []
-        output_emb.append(cat_name)
+    output = {}
 
-        cat_participants_names = [(start_table, part_table) for start_table, part_table in StartlistModel.get_startlist_by_category_with_names(cat_id)]
-        output_emb.append(cat_participants_names)
+    for st in startlists:
 
-        output.append(output_emb)
+        print(st.id)
+        print(st.name)
+        print(st.startline_count)
+
+        stlist_records = StartlistModel.get_records_by_startlist_id(st.id)
+        records_list = []
+        for ST, PT in stlist_records:
+            save_obj_tup = (PT.last_name, PT.first_name, ST.start_round, ST.start_position)
+            records_list.append(save_obj_tup)
+
+        output[st.name] = records_list
+
+    # for cat_id, cat_name in categories:
+    #     output_emb = []
+    #     output_emb.append(cat_name)
+    #
+    #     cat_participants_names = [(start_table, part_table) for start_table, part_table in StartlistModel.get_startlist_by_category_with_names(cat_id)]
+    #     output_emb.append(cat_participants_names)
+    #
+    #     output.append(output_emb)
 
     return render_template('startlist/startlist.html', data=output)
 
@@ -126,16 +142,16 @@ def time_random():
     random_times = []
 
     seconds = round(random.uniform(10.0, 60.0), 4)
-    random_times.append("12.{0}".format(seconds))
+    random_times.append("12:{0}".format(seconds))
 
     seconds = round(random.uniform(10.0, 60.0), 4)
-    random_times.append("13.{0}".format(seconds))
+    random_times.append("13:{0}".format(seconds))
 
     seconds = round(random.uniform(10.0, 60.0), 4)
-    random_times.append("14.{0}".format(seconds))
+    random_times.append("14:{0}".format(seconds))
 
     seconds = round(random.uniform(10.0, 60.0), 4)
-    random_times.append("15.{0}".format(seconds))
+    random_times.append("15:{0}".format(seconds))
 
     print(random_times)
 

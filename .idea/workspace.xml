@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="585c48b3-33b9-4f1d-b229-53c225147892" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/timetrack.sqlite" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/participants/views.py" afterPath="$PROJECT_DIR$/src/models/participants/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/timetrack.sqlite" afterPath="$PROJECT_DIR$/src/timetrack.sqlite" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/startlist/startlist.py" afterPath="$PROJECT_DIR$/src/models/startlist/startlist.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/startlist/views.py" afterPath="$PROJECT_DIR$/src/models/startlist/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/templates/base.html" afterPath="$PROJECT_DIR$/src/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/templates/dependencies_css.html" afterPath="$PROJECT_DIR$/src/templates/dependencies_css.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/templates/dependencies_js.html" afterPath="$PROJECT_DIR$/src/templates/dependencies_js.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/templates/participants/signup.html" afterPath="$PROJECT_DIR$/src/templates/participants/signup.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/templates/startlist/create_new_list.html" afterPath="$PROJECT_DIR$/src/templates/startlist/create_new_list.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/templates/startlist/add_time.html" afterPath="$PROJECT_DIR$/src/templates/startlist/add_time.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/templates/startlist/startlist.html" afterPath="$PROJECT_DIR$/src/templates/startlist/startlist.html" />
     </list>
     <ignored path="Tracktime.iws" />
@@ -31,11 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/models/participants/views.py">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/models/startlist/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="40" column="11" lean-forward="false" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="11" />
+            <state relative-caret-position="300">
+              <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
               <folding>
                 <element signature="e#0#82#0" expanded="true" />
               </folding>
@@ -43,43 +38,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/venv/lib/python3.5/site-packages/flask/app.py">
+      <file leaf-file-name="participants.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/models/participants/participants.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="1810" column="0" lean-forward="false" selection-start-line="1810" selection-start-column="0" selection-end-line="1810" selection-end-column="0" />
+            <state relative-caret-position="300">
+              <caret line="40" column="24" lean-forward="false" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="signup.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/templates/participants/signup.html">
+      <file leaf-file-name="startlist_processing.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/models/startlist/startlist_processing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="458">
-              <caret line="54" column="18" lean-forward="true" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="registered.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/templates/participants/registered.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" column="20" lean-forward="true" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/models/startlist/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="46" column="11" lean-forward="false" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="11" />
+            <state relative-caret-position="15">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding>
-                <element signature="e#0#82#0" expanded="true" />
+                <element signature="e#0#26#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -88,8 +63,30 @@
       <file leaf-file-name="startlist.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/templates/startlist/startlist.html">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="34" column="16" lean-forward="true" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="startlist.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/models/startlist/startlist.py">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <caret line="59" column="15" lean-forward="false" selection-start-line="59" selection-start-column="4" selection-end-line="59" selection-end-column="15" />
+              <folding>
+                <element signature="e#0#36#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="add_time.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/templates/startlist/add_time.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="51" lean-forward="false" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -125,11 +122,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="56" column="21" lean-forward="false" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
+            <state relative-caret-position="-135">
+              <caret line="21" column="25" lean-forward="true" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -195,20 +192,20 @@
         <option value="$PROJECT_DIR$/src/static/css/custom_style.css" />
         <option value="$PROJECT_DIR$/src/tests_delete_later/flow.py" />
         <option value="$PROJECT_DIR$/src/templates/startlist/flow_start.html" />
-        <option value="$PROJECT_DIR$/src/templates/startlist/add_time.html" />
         <option value="$PROJECT_DIR$/src/templates/startlist/startlist_category.html" />
         <option value="$PROJECT_DIR$/src/models/categories/categories.py" />
         <option value="$PROJECT_DIR$/src/models/startlist/startlist_processing.py" />
-        <option value="$PROJECT_DIR$/src/models/startlist/startlist.py" />
         <option value="$PROJECT_DIR$/src/templates/startlist/time.html" />
         <option value="$PROJECT_DIR$/src/templates/dependencies_css.html" />
         <option value="$PROJECT_DIR$/src/templates/dependencies_js.html" />
         <option value="$PROJECT_DIR$/src/models/participants/views.py" />
         <option value="$PROJECT_DIR$/src/templates/participants/signup.html" />
         <option value="$PROJECT_DIR$/src/templates/startlist/create_new_list.html" />
-        <option value="$PROJECT_DIR$/src/models/startlist/views.py" />
-        <option value="$PROJECT_DIR$/src/templates/startlist/startlist.html" />
         <option value="$PROJECT_DIR$/src/templates/base.html" />
+        <option value="$PROJECT_DIR$/src/templates/startlist/add_time.html" />
+        <option value="$PROJECT_DIR$/src/models/startlist/startlist.py" />
+        <option value="$PROJECT_DIR$/src/templates/startlist/startlist.html" />
+        <option value="$PROJECT_DIR$/src/models/startlist/views.py" />
       </list>
     </option>
   </component>
@@ -339,6 +336,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="startlist" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tracktime" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tracktime" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="participants" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -620,7 +639,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32866243" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32920793" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24585988" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3057325" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25350317" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19661734" sideWeight="0.22289157" order="0" side_tool="true" content_ui="tabs" />
@@ -866,14 +885,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/startlist/add_time.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="11" column="28" lean-forward="false" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/templates/startlist/results_1run.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -898,39 +909,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/participants/participants.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="40" column="24" lean-forward="false" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/tests_delete_later/flow.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="22" selection-end-column="49" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/startlist/startlist_processing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-300">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/startlist/startlist.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="34" column="19" lean-forward="false" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -979,7 +962,7 @@
         <state relative-caret-position="324">
           <caret line="40" column="11" lean-forward="false" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="11" />
           <folding>
-            <element signature="e#0#82#0" expanded="true" />
+            <element signature="e#0#82#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1032,29 +1015,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/startlist/views.py">
+    <entry file="file://$PROJECT_DIR$/src/templates/startlist/add_time.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="46" column="11" lean-forward="false" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#82#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/templates/startlist/startlist.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="75">
+          <caret line="5" column="51" lean-forward="false" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="56" column="21" lean-forward="false" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
+        <state relative-caret-position="-135">
+          <caret line="21" column="25" lean-forward="true" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/startlist/startlist_processing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/startlist/startlist.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="59" column="15" lean-forward="false" selection-start-line="59" selection-start-column="4" selection-end-line="59" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/participants/participants.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="40" column="24" lean-forward="false" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/templates/startlist/startlist.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" column="16" lean-forward="true" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/startlist/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#82#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
