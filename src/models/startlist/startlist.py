@@ -45,6 +45,10 @@ class StartlistNameModel(db.Model):
             db.session().rollback()
 
     @classmethod
+    def get_by_id(cls, startlist_id):
+        return db.session.query(cls).filter_by(id=startlist_id).one()
+
+    @classmethod
     def list_all(cls):
         return cls.query.all()
 

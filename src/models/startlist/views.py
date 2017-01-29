@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, sessions, redirect, url_for
+from flask import Blueprint, request, render_template, session, redirect, url_for
 from src.models.categories.categories import CategoryModel, CategoryAddForm
 from src.models.startlist.startlist import StartlistModel, StartlistNameModel
 import src.models.startlist.startlist_processing as startlist_processing
@@ -34,11 +34,6 @@ def startlist():
     output = {}
 
     for st in startlists:
-
-        print(st.id)
-        print(st.name)
-        print(st.startline_count)
-
         stlist_records = StartlistModel.get_records_by_startlist_id(st.id)
         records_list = []
         for ST, PT in stlist_records:
@@ -47,16 +42,31 @@ def startlist():
 
         output[st.name] = records_list
 
-    # for cat_id, cat_name in categories:
-    #     output_emb = []
-    #     output_emb.append(cat_name)
-    #
-    #     cat_participants_names = [(start_table, part_table) for start_table, part_table in StartlistModel.get_startlist_by_category_with_names(cat_id)]
-    #     output_emb.append(cat_participants_names)
-    #
-    #     output.append(output_emb)
-
     return render_template('startlist/startlist.html', data=output)
+
+
+@startlist_blueprint.route('/walk', methods=['GET', 'POST'])
+def walk():
+    sum_session_counter()
+    startlist1 = StartlistNameModel.get_by_id(1)
+    print(startlist1.name)
+    print(startlist1.startline_count)
+    return render_template('startlist/walk.html', session=session)
+
+
+@startlist_blueprint.route('/clear')
+def clearsession():
+    # Clear the session
+    session.clear()
+    # Redirect the user to the main page
+    return redirect(url_for('.walk'))
+
+
+def sum_session_counter():
+    try:
+        session['counter'] += 1
+    except KeyError:
+        session['counter'] = 1
 
 
 @startlist_blueprint.route('/results', methods=['GET', 'POST'])

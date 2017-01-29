@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+
+    <h1>WALK</h1>
+
+    {% if session %}
+    SESSION COUNTER: {{ session['counter'] }}
+    {% endif %}
+    <br>
+    <strong><a href="{{ url_for('startlist.clearsession') }}">Clear session</a></strong>
+
+</div>
+
+{% endblock %}
