@@ -93,13 +93,13 @@ def add_time():
     return render_template('startlist/add_time.html')
 
 @startlist_blueprint.route('/create', methods=['GET'])
-def flow_start():
+def create_startlist():
     defined_categories = [(category.id, category.category_name) for category in CategoryModel.list_all()]
     return render_template('startlist/create_new_list.html', categories=defined_categories)
 
 
 @startlist_blueprint.route('/startlist_created', methods=['POST'])
-def create_startlist():
+def generate():
     if request.method == 'POST':
         startlist_name = request.form['startlist_name'].strip()
         startlist_lines = request.form['startlist_lines']
@@ -115,6 +115,8 @@ def create_startlist():
         print(new_startlist.id)
         startlist_processing.process(new_startlist.id, startlist_category, int(startlist_lines))
 
+    # TODO zobraz zoznam startujucich v novovytvorenom liste
+
     return render_template('startlist/startlist_category.html')
 
 
@@ -122,10 +124,18 @@ def create_startlist():
 def time_random():
 
     random_times = []
-    random_times.append(generate_time())
-    random_times.append(generate_time())
-    random_times.append(generate_time())
-    random_times.append(generate_time())
+
+    seconds = round(random.uniform(10.0, 60.0), 4)
+    random_times.append("12.{0}".format(seconds))
+
+    seconds = round(random.uniform(10.0, 60.0), 4)
+    random_times.append("13.{0}".format(seconds))
+
+    seconds = round(random.uniform(10.0, 60.0), 4)
+    random_times.append("14.{0}".format(seconds))
+
+    seconds = round(random.uniform(10.0, 60.0), 4)
+    random_times.append("15.{0}".format(seconds))
 
     print(random_times)
 
@@ -133,16 +143,3 @@ def time_random():
         pass
 
     return render_template('startlist/time.html', random_times=random_times)
-
-
-def generate_time():
-    """
-    Generates a pseudo-random time and returns it as a string
-    Only temporary solution until not integrated with timy
-
-    :return:
-    string
-    """
-    minutes = random.randrange(12, 15)
-    seconds = round(random.uniform(10.0, 60.0), 4)
-    return "{0:01d}:{1}".format(minutes, seconds)

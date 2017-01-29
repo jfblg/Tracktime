@@ -23,11 +23,41 @@
             <a class="navbar-brand" href="#">Tracktime</a>
         </div>
 
-        <ul class="nav navbar-nav">
-            <li><a href="{{ url_for('startlist.startlist')}}">Startlist</a></li>
-            <li><a href="{{ url_for('participants.index')}}">Participants</a></li>
-            <li><a href="{{ url_for('categories.list')}}">Categories</a></li>
-        </ul>
+        <div class="collapse navbar-collapse" id="navbar-dropdown">
+
+            <ul class="nav navbar-nav">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Categories <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('categories.add')}}">Add</a></li>
+                        <li><a href="{{ url_for('categories.list')}}">List</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Participants <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('participants.add')}}">Add</a></li>
+                        <li><a href="{{ url_for('participants.list')}}">List</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Startlist <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('startlist.create_startlist')}}">Add</a></li>
+                        <li><a href="{{ url_for('startlist.add_time')}}">Add Time to Runner</a></li>
+                        <li><a href="{{ url_for('startlist.startlist')}}">Show all</a></li>
+                        <li><a href="{{ url_for('startlist.results')}}">Results</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
 
     </div>
 </nav>

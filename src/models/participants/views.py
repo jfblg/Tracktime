@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, sessions, redirect, url_for
 from src.models.participants.participants import ParticipantModel, RunnerRegistrationForm
-from src.models.participants.mass_import_xls import insert_many
+import src.models.participants.mass_import_xls as mass_import
 
 # Not all imports from above are actually used.
 # They are listed for your reference.
@@ -8,9 +8,9 @@ from src.models.participants.mass_import_xls import insert_many
 participants_blueprint = Blueprint("participants", __name__)
 
 @participants_blueprint.route('/add', methods=['GET', 'POST'])
-def index():
+def add():
     # TODO - rework later. Add import from file functionality
-    insert_many()
+    mass_import.insert_many()
 
     form = RunnerRegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
@@ -38,8 +38,7 @@ def index():
 
 
 @participants_blueprint.route('/list', methods=['GET', 'POST'])
-def show_registered():
-
+def list():
     if request.method == 'POST':
         year_filter = request.form['year'].strip()
         if year_filter != "":
