@@ -4,17 +4,42 @@
 <div class="container">
 
 
-    <h3>Start List: </h3> <h1>{{ startlist_name }}</h1>
-    <h3>Current Round: </h3> <h1>{{ round }}</h1>
+    <h3>Name: {{ name }}</h3>
+    <h3>Current Round: {{ session['counter'] }}</h3>
 
-    {% for runner in start_round %}
-    <p>{{ lastname }} {{ first_name }}, {{ startline }}, {{start_round }}</p>
-    {% endfor %}
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{ progress_now }}" aria-valuemin="0" aria-valuemax="100"
+             style="width: {{ progress_now }}%;">
+            {{ progress_now }}%
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="dataTable_wrapper">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Round</th>
+                    <th>Start line</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for last_name, first_name, start_round, start_position in startlist %}
+                <tr>
+                    <td>{{ last_name }}</td>
+                    <td>{{ first_name }}</td>
+                    <td>{{ start_round }}</td>
+                    <td>{{ start_position }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
-    {% if session %}
-    SESSION COUNTER: {{ session['counter'] }}
-    {% endif %}
     <br>
     <strong><a href="{{ url_for('startlist.clearsession') }}">Clear session</a></strong>
     <br>
@@ -22,8 +47,6 @@
     <form method="POST" action="{{ url_for('startlist.next_round')}}">
         <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> NEXT</button>
     </form>
-
-
 
 
 </div>

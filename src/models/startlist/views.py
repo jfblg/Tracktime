@@ -53,16 +53,39 @@ def next_round():
 
 @startlist_blueprint.route('/walk', methods=['GET', 'POST'])
 def walk():
-    startlist1 = StartlistNameModel.get_by_id(3)
+
+    ST_LIST_ID = 3
+
+    startlist1 = StartlistNameModel.get_by_id(ST_LIST_ID)
     init_session_counter()
-    print(session['counter'])
 
+    if session['counter'] > startlist1.startlist_rounds:
+        clearsession()
+        return redirect(url_for('.startlist'))
 
+    found_records = [record for record in StartlistModel.get_records_by_startlist_id_and_round_number(
+        ST_LIST_ID,
+        session['counter']
+    )]
 
+    startlist_round = []
+    for stm, ptm in found_records:
+        record = (ptm.last_name, ptm.first_name, stm.start_position, stm.start_round)
+        startlist_round.append(record)
 
-    print(startlist1.name)
-    print(startlist1.startline_count)
-    return render_template('startlist/walk.html', session=session)
+    progress_now = session['counter'] * 100 / startlist1.startlist_rounds
+    progress_now_int = int(round(progress_now))
+
+    # print(startlist1.name)
+    # print(startlist1.startline_count)
+    # print(startlist1.startlist_rounds)
+
+    return render_template(
+        'startlist/walk.html',
+        name=startlist1.name,
+        startlist=startlist_round,
+        progress_now=progress_now_int
+    )
 
 
 @startlist_blueprint.route('/clear')
