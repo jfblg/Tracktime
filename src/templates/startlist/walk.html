@@ -19,19 +19,20 @@
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
+                    <th>Start line</th>
                     <th>Last Name</th>
                     <th>First Name</th>
                     <th>Round</th>
-                    <th>Start line</th>
+
                 </tr>
                 </thead>
                 <tbody>
-                {% for last_name, first_name, start_round, start_position in startlist %}
+                {% for last_name, first_name, start_position, start_round in startlist %}
                 <tr>
+                    <td>{{ start_position }}</td>
                     <td>{{ last_name }}</td>
                     <td>{{ first_name }}</td>
                     <td>{{ start_round }}</td>
-                    <td>{{ start_position }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>
