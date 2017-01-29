@@ -4,13 +4,27 @@
 <div class="container">
 
 
-    <h1>WALK</h1>
+    <h3>Start List: </h3> <h1>{{ startlist_name }}</h1>
+    <h3>Current Round: </h3> <h1>{{ round }}</h1>
+
+    {% for runner in start_round %}
+    <p>{{ lastname }} {{ first_name }}, {{ startline }}, {{start_round }}</p>
+    {% endfor %}
+
 
     {% if session %}
     SESSION COUNTER: {{ session['counter'] }}
     {% endif %}
     <br>
     <strong><a href="{{ url_for('startlist.clearsession') }}">Clear session</a></strong>
+    <br>
+
+    <form method="POST" action="{{ url_for('startlist.next_round')}}">
+        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> NEXT</button>
+    </form>
+
+
+
 
 </div>
 

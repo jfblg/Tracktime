@@ -14,6 +14,7 @@ class StartlistNameModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     startline_count = db.Column(db.Integer, nullable=False)
+    startlist_rounds = db.Column(db.Integer, nullable=True)
     # TODO add other details like date of creation, name of author, ...
 
     startlist = db.relationship("StartlistModel",
@@ -24,12 +25,13 @@ class StartlistNameModel(db.Model):
         self.name = name
         self.startline_count = startline_count
 
-
     def json(self):
         return {
             "id": self.id,
             "name": self.name,
-            "startline_count": self.startline_count
+            "startline_count": self.startline_count,
+            "rounds": self.startlist_rounds
+
         }
 
     def save_to_db(self):

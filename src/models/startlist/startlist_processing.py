@@ -61,7 +61,7 @@ def process(startlist_id, category_id, startline_count):
         # print(start_record.json())
         start_record.save_to_db()
 
-    return True
+    return start_round
 
 
 def get_participants():

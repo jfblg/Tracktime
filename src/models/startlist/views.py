@@ -45,10 +45,21 @@ def startlist():
     return render_template('startlist/startlist.html', data=output)
 
 
+@startlist_blueprint.route('/next', methods=['GET', 'POST'])
+def next_round():
+    plus_session_counter()
+    return redirect(url_for('.walk'))
+
+
 @startlist_blueprint.route('/walk', methods=['GET', 'POST'])
 def walk():
-    sum_session_counter()
-    startlist1 = StartlistNameModel.get_by_id(1)
+    startlist1 = StartlistNameModel.get_by_id(3)
+    init_session_counter()
+    print(session['counter'])
+
+
+
+
     print(startlist1.name)
     print(startlist1.startline_count)
     return render_template('startlist/walk.html', session=session)
@@ -62,9 +73,23 @@ def clearsession():
     return redirect(url_for('.walk'))
 
 
-def sum_session_counter():
+def init_session_counter():
+    try:
+        session['counter']
+    except KeyError:
+        session['counter'] = 1
+
+
+def plus_session_counter():
     try:
         session['counter'] += 1
+    except KeyError:
+        session['counter'] = 1
+
+
+def minus_session_counter():
+    try:
+        session['counter'] -= 1
     except KeyError:
         session['counter'] = 1
 
@@ -79,7 +104,8 @@ def results():
         output_emb = list()
         output_emb.append(cat_name)
 
-        cat_participants_names = [(start_table, part_table) for start_table, part_table in StartlistModel.get_startlist_by_category_with_names(cat_id)]
+        cat_participants_names = [(start_table, part_table) for start_table, part_table in
+                                  StartlistModel.get_startlist_by_category_with_names(cat_id)]
         output_emb.append(cat_participants_names)
 
         output.append(output_emb)
@@ -118,6 +144,7 @@ def add_time():
 
     return render_template('startlist/add_time.html')
 
+
 @startlist_blueprint.route('/create', methods=['GET'])
 def create_startlist():
     defined_categories = [(category.id, category.category_name) for category in CategoryModel.list_all()]
@@ -138,17 +165,22 @@ def generate():
         new_startlist = StartlistNameModel(startlist_name, startlist_lines)
         new_startlist.save_to_db()
 
-        print(new_startlist.id)
-        startlist_processing.process(new_startlist.id, startlist_category, int(startlist_lines))
+        print("Startlist ID: {} - {} - {}".format(new_startlist.id, new_startlist.name, new_startlist.startline_count))
+
+        new_startlist.startlist_rounds = startlist_processing.process(
+            new_startlist.id,
+            startlist_category,
+            int(startlist_lines)
+        )
+        new_startlist.save_to_db()
 
     # TODO zobraz zoznam startujucich v novovytvorenom liste
 
-    return render_template('startlist/startlist_category.html')
+    return redirect(url_for('.create_startlist'))
 
 
 @startlist_blueprint.route('/time', methods=['GET', 'POST'])
 def time_random():
-
     random_times = []
 
     seconds = round(random.uniform(10.0, 60.0), 4)
