@@ -48,23 +48,38 @@ def startlist():
 @startlist_blueprint.route('/next', methods=['GET', 'POST'])
 def next_round():
     plus_session_counter()
-    return redirect(url_for('.walk'))
+    return redirect(url_for('startlist.wizard'))
 
 
-@startlist_blueprint.route('/walk', methods=['GET', 'POST'])
-def walk():
+@startlist_blueprint.route('/create_wizard', methods=['GET', 'POST'])
+def wizard_start():
+    startlist_display = [(st.id, st.name) for st in StartlistNameModel.list_all()]
+    return render_template('startlist/create_new_wizard.html', data=startlist_display)
 
-    ST_LIST_ID = 3
 
-    startlist1 = StartlistNameModel.get_by_id(ST_LIST_ID)
+@startlist_blueprint.route('/wizard', methods=['GET', 'POST'])
+def wizard():
+
+    if request.method == 'POST':
+        try:
+            session['startlist_selected'] = request.form['startlist_select']
+        except:
+            print("error - method wizard")
+
+    try:
+        startlist_selected = session['startlist_selected']
+    except KeyError:
+        return redirect(url_for('.wizard_start'))
+
+    startlist_instance = StartlistNameModel.get_by_id(startlist_selected)
     init_session_counter()
 
-    if session['counter'] > startlist1.startlist_rounds:
+    if session['counter'] > startlist_instance.startlist_rounds:
         clearsession()
-        return redirect(url_for('.startlist'))
+        return redirect(url_for('.wizard_start'))
 
     found_records = [record for record in StartlistModel.get_records_by_startlist_id_and_round_number(
-        ST_LIST_ID,
+        startlist_selected,
         session['counter']
     )]
 
@@ -73,7 +88,7 @@ def walk():
         record = (ptm.last_name, ptm.first_name, stm.start_position, stm.start_round)
         startlist_round.append(record)
 
-    progress_now = session['counter'] * 100 / startlist1.startlist_rounds
+    progress_now = session['counter'] * 100 / startlist_instance.startlist_rounds
     progress_now_int = int(round(progress_now))
 
     # print(startlist1.name)
@@ -81,8 +96,8 @@ def walk():
     # print(startlist1.startlist_rounds)
 
     return render_template(
-        'startlist/walk.html',
-        name=startlist1.name,
+        'startlist/wizard.html',
+        name=startlist_instance.name,
         startlist=startlist_round,
         progress_now=progress_now_int
     )
@@ -92,8 +107,7 @@ def walk():
 def clearsession():
     # Clear the session
     session.clear()
-    # Redirect the user to the main page
-    return redirect(url_for('.walk'))
+    return True
 
 
 def init_session_counter():

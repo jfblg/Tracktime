@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+
+    <h1>Time measurement wizard</h1>
+
+    <div>
+        <form method="POST" action="{{ url_for('startlist.wizard') }}">
+
+            <p>Select startlist</p>
+            {% for st_id, st_name in data %}
+            <input type="radio" name="startlist_select" id="{{ st_name }}" value="{{ st_id }}">
+            <label for="{{ st_name }}">{{ st_name }}</label><br>
+
+            {% endfor %}
+
+            <br>
+
+            <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Start the wizard</button>
+
+        </form>
+    </div>
+
+
+    {% block success %}
+    {% endblock %}
+</div>
+
+{% endblock %}
