@@ -48,35 +48,36 @@ def startlist():
 @startlist_blueprint.route('/next', methods=['GET', 'POST'])
 def next_round():
 
-    startlist_id = session['startlist_selected']
-    print("ST List: {}".format(startlist_id))
-    round_current = session['counter']
-    print("Round: {}".format(round_current))
-
     if request.method == "POST":
         received_values = []
-        print(session['random_times'])
         for index in range(0, len(session['random_times'])):
             received_values.append(request.form[str(index)])
 
-    # print(received_values)
-    # print(session['startlist_round'])
+        received_values = [int(value) for value in received_values]
+        results_possition = dict(zip(received_values, session['random_times']))
 
+        results_id = []
+        for _, _, start_position, _, startlist_id in session['startlist_round']:
+            result_tuple = (startlist_id, results_possition[start_position])
+            results_id.append(result_tuple)
 
-        # epoch = datetime.datetime.utcfromtimestamp(0)
-        # delta = time_converted - epoch
-        # print(delta)
-
-        found_runner = StartlistModel.get_by_participant_id(user_id)
-
-        found_runner.time_measured = delta
-        found_runner.save_to_db()
-
-
-
+        for startlist_id, time_measured in results_id:
+            found_runner = StartlistModel.get_by_startlist_id(startlist_id)
+            found_runner.time_measured = convert_time_to_delta(time_measured)
+            found_runner.save_to_db()
 
     plus_session_counter()
     return redirect(url_for('startlist.wizard'))
+
+
+def convert_time_to_delta(time_entered):
+    epoch = datetime.datetime.utcfromtimestamp(0)
+
+    time_entered = time_entered.strip()
+    datetime_composite = "1 Jan 1970 {}".format(time_entered)
+    time_converted = datetime.datetime.strptime(datetime_composite, '%d %b %Y %M:%S.%f')
+    delta_time = time_converted - epoch
+    return delta_time
 
 
 @startlist_blueprint.route('/create_wizard', methods=['GET', 'POST'])

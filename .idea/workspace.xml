@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="585c48b3-33b9-4f1d-b229-53c225147892" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/timetrack.sqlite" afterPath="$PROJECT_DIR$/src/timetrack.sqlite" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/timetrack.sqlite" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/startlist/startlist.py" afterPath="$PROJECT_DIR$/src/models/startlist/startlist.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/models/startlist/views.py" afterPath="$PROJECT_DIR$/src/models/startlist/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/templates/base.html" afterPath="$PROJECT_DIR$/src/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/templates/startlist/wizard.html" afterPath="$PROJECT_DIR$/src/templates/startlist/wizard.html" />
     </list>
     <ignored path="Tracktime.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,8 +28,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/models/startlist/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+            <state relative-caret-position="127">
+              <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
               <folding>
                 <element signature="e#0#81#0" expanded="true" />
               </folding>
@@ -124,8 +124,8 @@
       <file leaf-file-name="startlist.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/startlist/startlist.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+            <state relative-caret-position="322">
+              <caret line="143" column="27" lean-forward="false" selection-start-line="143" selection-start-column="8" selection-end-line="143" selection-end-column="27" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -203,11 +203,11 @@
         <option value="$PROJECT_DIR$/src/templates/startlist/startlist.html" />
         <option value="$PROJECT_DIR$/src/app.py" />
         <option value="$PROJECT_DIR$/src/models/startlist/startlist_processing.py" />
-        <option value="$PROJECT_DIR$/src/models/startlist/startlist.py" />
         <option value="$PROJECT_DIR$/src/templates/startlist/walk.html" />
         <option value="$PROJECT_DIR$/src/templates/startlist/create_new_wizard.html" />
         <option value="$PROJECT_DIR$/src/templates/base.html" />
         <option value="$PROJECT_DIR$/src/templates/startlist/wizard.html" />
+        <option value="$PROJECT_DIR$/src/models/startlist/startlist.py" />
         <option value="$PROJECT_DIR$/src/models/startlist/views.py" />
       </list>
     </option>
@@ -594,7 +594,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="44" y="24" width="1397" height="877" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22674419" sideWeight="0.77710843" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299363" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -985,16 +985,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/startlist/startlist.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/templates/startlist/create_new_list.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
@@ -1045,10 +1035,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/startlist/startlist.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="143" column="27" lean-forward="false" selection-start-line="143" selection-start-column="8" selection-end-line="143" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/models/startlist/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+        <state relative-caret-position="127">
+          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding>
             <element signature="e#0#81#0" expanded="true" />
           </folding>

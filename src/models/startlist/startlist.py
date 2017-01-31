@@ -141,8 +141,8 @@ class StartlistModel(db.Model):
 
 
     @classmethod
-    def get_by_participant_id(cls, participant_id):
-        return db.session.query(StartlistModel).filter_by(participant_id=participant_id).one()
+    def get_by_startlist_id(cls, startlist_id):
+        return db.session.query(StartlistModel).filter_by(id=startlist_id).one()
 
 
     @classmethod
