@@ -47,12 +47,42 @@ def startlist():
 
 @startlist_blueprint.route('/next', methods=['GET', 'POST'])
 def next_round():
+
+    startlist_id = session['startlist_selected']
+    print("ST List: {}".format(startlist_id))
+    round_current = session['counter']
+    print("Round: {}".format(round_current))
+
+    if request.method == "POST":
+        received_values = []
+        print(session['random_times'])
+        for index in range(0, len(session['random_times'])):
+            received_values.append(request.form[str(index)])
+
+    # print(received_values)
+    # print(session['startlist_round'])
+
+
+        # epoch = datetime.datetime.utcfromtimestamp(0)
+        # delta = time_converted - epoch
+        # print(delta)
+
+        found_runner = StartlistModel.get_by_participant_id(user_id)
+
+        found_runner.time_measured = delta
+        found_runner.save_to_db()
+
+
+
+
     plus_session_counter()
     return redirect(url_for('startlist.wizard'))
 
 
 @startlist_blueprint.route('/create_wizard', methods=['GET', 'POST'])
 def wizard_start():
+    # clearing session counter
+    clearsession()
     startlist_display = [(st.id, st.name) for st in StartlistNameModel.list_all()]
     return render_template('startlist/create_new_wizard.html', data=startlist_display)
 
@@ -83,10 +113,18 @@ def wizard():
         session['counter']
     )]
 
+
     startlist_round = []
     for stm, ptm in found_records:
-        record = (ptm.last_name, ptm.first_name, stm.start_position, stm.start_round)
+        record = (ptm.last_name, ptm.first_name, stm.start_position, stm.start_round, stm.id)
         startlist_round.append(record)
+
+    # to easily receive startlist_id in the next_round()
+    session['startlist_round'] = startlist_round
+
+    startlist_lines = len(startlist_round)
+    random_times = time_random(startlist_lines)
+    session['random_times'] = random_times
 
     progress_now = session['counter'] * 100 / startlist_instance.startlist_rounds
     progress_now_int = int(round(progress_now))
@@ -99,7 +137,9 @@ def wizard():
         'startlist/wizard.html',
         name=startlist_instance.name,
         startlist=startlist_round,
-        progress_now=progress_now_int
+        progress_now=progress_now_int,
+        startlist_lines=startlist_lines,
+        random_times=random_times
     )
 
 
@@ -216,25 +256,11 @@ def generate():
     return redirect(url_for('.create_startlist'))
 
 
-@startlist_blueprint.route('/time', methods=['GET', 'POST'])
-def time_random():
+def time_random(number_of_random_times):
     random_times = []
 
-    seconds = round(random.uniform(10.0, 60.0), 4)
-    random_times.append("12:{0}".format(seconds))
+    for minutes in range(10, 10+int(number_of_random_times)):
+        seconds = round(random.uniform(10.0, 60.0), 4)
+        random_times.append("{0}:{1}".format(minutes, seconds))
 
-    seconds = round(random.uniform(10.0, 60.0), 4)
-    random_times.append("13:{0}".format(seconds))
-
-    seconds = round(random.uniform(10.0, 60.0), 4)
-    random_times.append("14:{0}".format(seconds))
-
-    seconds = round(random.uniform(10.0, 60.0), 4)
-    random_times.append("15:{0}".format(seconds))
-
-    print(random_times)
-
-    if request.method == 'POST':
-        pass
-
-    return render_template('startlist/time.html', random_times=random_times)
+    return random_times
