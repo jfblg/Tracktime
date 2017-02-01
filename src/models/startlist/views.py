@@ -103,10 +103,14 @@ def wizard():
         return redirect(url_for('.wizard_start'))
 
     startlist_instance = StartlistNameModel.get_by_id(startlist_selected)
+
+    # it does nothing if session['counter'] already exists
     init_session_counter()
 
     if session['counter'] > startlist_instance.startlist_rounds:
-        clearsession()
+        # indicates that there are times stored in this startlist
+        startlist_instance.measured_flag = True
+        startlist_instance.save_to_db()
         return redirect(url_for('.wizard_start'))
 
     found_records = [record for record in StartlistModel.get_records_by_startlist_id_and_round_number(
@@ -174,21 +178,26 @@ def minus_session_counter():
 
 @startlist_blueprint.route('/results', methods=['GET', 'POST'])
 def results():
-    # Uncomment to re-process the start list. Working only when the start list is empty.
-    output = []
-    categories = [(cat_id, cat_name) for cat_id, cat_name in CategoryModel.list_categories_ordered()]
+    startlist_finished = [(stlist.id, stlist.name) for stlist in StartlistNameModel.list_measured_all()]
+    return render_template('startlist/results_finished_startlists.html', data=startlist_finished)
 
-    for cat_id, cat_name in categories:
-        output_emb = list()
-        output_emb.append(cat_name)
 
-        cat_participants_names = [(start_table, part_table) for start_table, part_table in
-                                  StartlistModel.get_startlist_by_category_with_names(cat_id)]
-        output_emb.append(cat_participants_names)
+@startlist_blueprint.route('/result_startlist', methods=['POST'])
+def results_specific_startlist():
+    startlist_id = request.form['startlist_select']
+    startlist_instance = StartlistNameModel.get_by_id(startlist_id)
 
-        output.append(output_emb)
+    result_records = [result for result in StartlistModel.get_records_by_startlist_id_order_by_time(startlist_id)]
 
-    return render_template('startlist/results_1run.html', data=output)
+    output_list = []
+    for st, pt in result_records:
+        result_item = (pt.last_name, pt.first_name, st.time_measured)
+        output_list.append(result_item)
+
+
+    return render_template('startlist/results_specific_startlist.html',
+                           startlist_name=startlist_instance.name,
+                           data=output_list)
 
 
 @startlist_blueprint.route('/findrunner', methods=['GET', 'POST'])

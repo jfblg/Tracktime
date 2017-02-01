@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+
+    <h1>Show results</h1>
+    <h3>...for already measured startlists</h3>
+
+    <div>
+        <form method="post" action="{{ url_for('startlist.results_specific_startlist') }}">
+
+            <p>Select startlist for results</p>
+            {% for st_id, st_name in data %}
+            <input type="radio" name="startlist_select" id="{{ st_name }}" value="{{ st_id }}">
+            <label for="{{ st_name }}">{{ st_name }}</label><br>
+
+            {% endfor %}
+
+            <br>
+
+            <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Show results</button>
+
+        </form>
+    </div>
+
+
+    {% block success %}
+    {% endblock %}
+</div>
+
+{% endblock %}

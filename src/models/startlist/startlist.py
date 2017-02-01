@@ -15,6 +15,7 @@ class StartlistNameModel(db.Model):
     name = db.Column(db.String(80), nullable=False)
     startline_count = db.Column(db.Integer, nullable=False)
     startlist_rounds = db.Column(db.Integer, nullable=True)
+    measured_flag = db.Column(db.Boolean, unique=False, default=False)
     # TODO add other details like date of creation, name of author, ...
 
     startlist = db.relationship("StartlistModel",
@@ -49,6 +50,10 @@ class StartlistNameModel(db.Model):
     @classmethod
     def get_by_id(cls, startlist_id):
         return db.session.query(cls).filter_by(id=startlist_id).one()
+
+    @classmethod
+    def list_measured_all(cls):
+        return db.session.query(cls).filter_by(measured_flag=True).order_by(StartlistNameModel.id).all()
 
     @classmethod
     def list_all(cls):
@@ -137,6 +142,14 @@ class StartlistModel(db.Model):
             filter(StartlistModel.startlist_id == startlist_name_id). \
             filter(StartlistModel.start_round == round_number). \
             order_by(StartlistModel.start_position). \
+            all()
+
+    @classmethod
+    def get_records_by_startlist_id_order_by_time(cls, startlist_name_id):
+        return db.session.query(StartlistModel, ParticipantModel). \
+            filter(StartlistModel.participant_id == ParticipantModel.id). \
+            filter(StartlistModel.startlist_id == startlist_name_id). \
+            order_by(StartlistModel.time_measured). \
             all()
 
 
