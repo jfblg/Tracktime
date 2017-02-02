@@ -1,1 +1,7 @@
 body { padding-top: 70px; }
+
+span.badge.pull-left {
+    margin-right: 300px;
+    margin-right: 100px;
+    width: 200px;
+}
