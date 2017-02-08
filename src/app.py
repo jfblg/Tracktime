@@ -40,13 +40,3 @@ if __name__ == "__main__":
     from src.common.database import db
     db.init_app(app)
     app.run(port=4999, debug=True)
-
-
-
-
-
-
-
-
-
-
