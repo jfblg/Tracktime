@@ -1,0 +1,81 @@
+{% extends "participants/participants.html" %}
+{% block signup %}
+
+<div class="form-size">
+
+    <div class="row">
+
+        <h1 class="page-header"><i class="fa fa-edit"></i> Register new runner</h1>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Enter participants details
+            </div>
+            <div class="panel-body">
+
+                {% from "participants/_formhelpers.html" import render_field %}
+                <form method="post">
+                    {{ render_field(form.first_name) }}
+                    {{ render_field(form.last_name) }}
+                    {{ render_field(form.email_addr) }}
+                    {{ render_field(form.gender) }}
+                    {{ render_field(form.year) }}
+
+                    <!-- Small button group -->
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            Small button <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href=#>Action</a></li>
+                            <li><a href=#>Another action</a></li>
+                            <li role=separator class=divider></li>
+                            <li><a href=#>Separated link</a></li>
+                        </ul>
+                    </div>
+
+                    <select class="selectpicker show-menu-arrow">
+                        <option>Mustard</option>
+                        <option>Ketchup</option>
+                        <option>Relish</option>
+                    </select>
+
+                    <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Sign up</button>
+                    <a type="reset" class="btn btn-danger" href="{{ url_for('participants.add') }}"><span
+                            class="glyphicon glyphicon-erase"></span> Clear all</a>
+                </form>
+            </div>
+            <!-- panel body-->
+        </div>
+        <!-- panel -->
+    </div>
+    <!-- row -->
+    {% block success %}
+    {% endblock %}
+
+</div>
+<!-- form-size -->
+
+<script>
+  $(document).ready(function () {
+    var mySelect = $('#first-disabled2');
+
+    $('#special').on('click', function () {
+      mySelect.find('option:selected').prop('disabled', true);
+      mySelect.selectpicker('refresh');
+    });
+
+    $('#special2').on('click', function () {
+      mySelect.find('option:disabled').prop('disabled', false);
+      mySelect.selectpicker('refresh');
+    });
+
+    $('#basic2').selectpicker({
+      liveSearch: true,
+      maxOptions: 1
+    });
+  });
+</script>
+
+{% endblock %}

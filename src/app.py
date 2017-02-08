@@ -1,8 +1,6 @@
 import os
 
-from flask import Flask, render_template
-
-from src.common.database import db
+from flask import Flask, render_template, session
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///timetrack.sqlite')
@@ -17,12 +15,16 @@ def create_table():
 
 @app.route('/')
 def home():
-    return render_template('home.jinja2')
+    return render_template('home.html')
 
 from src.models.participants.views import participants_blueprint
+from src.models.categories.views import categories_blueprint
+from src.models.startlist.views import startlist_blueprint
 # add another models
 
-app.register_blueprint(participants_blueprint, url_prefix="/signup")
+app.register_blueprint(participants_blueprint, url_prefix="/participants")
+app.register_blueprint(categories_blueprint, url_prefix="/categories")
+app.register_blueprint(startlist_blueprint, url_prefix="/startlist")
 # register another blueprints
 
 

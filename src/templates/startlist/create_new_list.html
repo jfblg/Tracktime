@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+
+    <h1>Create new startlist</h1>
+
+    <div>
+        <form method="POST" action="{{ url_for('startlist.generate')}}">
+
+            <div class="form-group">
+                <label>Name of the Start list</label>
+                <input type="text" class="form-control" name="startlist_name" id="startlist_name">
+                <p class="help-block">Max 20 chars.</p>
+            </div>
+            <br>
+
+            <p>Select category</p>
+            {% for cat_id, cat_name in categories %}
+            <input type="radio" name="startlist_category" id="{{ cat_name }}" value="{{ cat_id }}">
+            <label for="{{ cat_name }}">{{ cat_name }}</label><br>
+
+            {% endfor %}
+
+            <br>
+            <br>
+
+            Number of start lines
+            <select name="startlist_lines" id="startlist_lines">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6" selected="selected">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <br>
+            <br>
+
+            <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Start</button>
+
+        </form>
+    </div>
+
+
+    {% block success %}
+    {% endblock %}
+</div>
+
+{% endblock %}

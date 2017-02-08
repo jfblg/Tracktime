@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+
+    <h1>Random Times</h1>
+
+    <div>
+        <form method="POST" action="{{ url_for('startlist.time_random')}}">
+
+            {% for time in random_times %}
+
+            <div class="form-group">
+                <label>{{ time }}</label>
+                <input type="text" class="form-control" name="startlist_name" id="startlist_name">
+                <p class="help-block">Finishing line</p>
+            </div>
+            <br>
+
+            {% endfor %}
+
+            <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Start</button>
+
+        </form>
+    </div>
+
+
+    {% block success %}
+    {% endblock %}
+</div>
+
+{% endblock %}
