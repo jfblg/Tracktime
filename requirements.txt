@@ -13,3 +13,4 @@ SQLAlchemy==1.1.5
 Werkzeug==0.11.15
 WTForms==2.1
 xlrd==1.0.0
+pyusb==1.0.0

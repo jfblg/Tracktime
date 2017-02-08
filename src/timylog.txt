@@ -1,0 +1,10 @@
+2017-02-08 07:20:43,887 DEBUG Received values: 0002 - c1M - 00:01:35.83 - 10
+2017-02-08 07:20:43,920 DEBUG Time saved to the database
+2017-02-08 07:20:44,757 DEBUG Received values: 0002 - c1M - 00:01:36.70 - 11
+2017-02-08 07:20:44,762 DEBUG Time saved to the database
+2017-02-08 07:20:45,024 DEBUG Received values: 0002 - c1M - 00:01:36.93 - 12
+2017-02-08 07:20:45,029 DEBUG Time saved to the database
+2017-02-08 07:20:45,236 DEBUG Received values: 0002 - c1M - 00:01:37.14 - 13
+2017-02-08 07:20:45,240 DEBUG Time saved to the database
+2017-02-08 07:20:45,446 DEBUG Received values: 0002 - c1M - 00:01:37.34 - 14
+2017-02-08 07:20:45,451 DEBUG Time saved to the database
