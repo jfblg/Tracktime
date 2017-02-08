@@ -1,5 +1,9 @@
 import os
 
+from threading import Thread
+# TODO how to run while loop and Flask at the same time?
+# http://stackoverflow.com/questions/23100704/running-infinite-loops-using-threads-in-python?answertab=votes#tab-top
+
 from flask import Flask, render_template, session
 from src.models.timedb.timy import Timy
 
@@ -14,9 +18,6 @@ def create_table():
     '''
     db.create_all()
     db.session.commit()
-
-    dev = Timy()
-    dev.capture_start()
 
 @app.route('/')
 def home():
@@ -38,5 +39,14 @@ app.register_blueprint(timedb_blueprint, url_prefix="/timedb")
 if __name__ == "__main__":
     from src.common.database import db
     db.init_app(app)
-    app.run(port=4999, debug = True)
+    app.run(port=4999, debug=True)
+
+
+
+
+
+
+
+
+
 
