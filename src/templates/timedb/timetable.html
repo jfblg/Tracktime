@@ -3,6 +3,7 @@
 
 <script type=text/javascript>
   $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
 </script>
 
 <div class="container">
@@ -41,7 +42,7 @@
         <input type="hidden" name="b" value="3">
         <input type="submit" value="Submit">
     </form>
-<br><br>
+    <br><br>
 
     <script>
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
@@ -67,23 +68,26 @@
 
         req.open('POST', '/timedb/_last_x_times')
         req.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-        var un = document.getElementById('scname').value
-        var sec = document.getElementById('secret').value
-        var postVars = 'username='+un+'&secret='+sec
+        var a = document.getElementById('a').value
+        var b = document.getElementById('b').value
+        var postVars = 'a='+a+'&b='+b
         req.send(postVars)
 
         return false
     }
-</script>
+
+    </script>
 
 
     <h1>Flask AJAX Test</h1>
-<form action="" method="POST">
-<input type="text" name="scname" id="scname">
-<input type="hidden" name="secret" id="secret" value="shhh">
-<input type="button" value="Submit" onclick="return loadXMLDoc()">
-</form>
-<div id="myDiv"></div>
+    <form action="" method="POST">
+        <input type="text" name="scname" id="scname">
+        <input type="hidden" name="secret" id="secret" value="shhh">
+        <input type="hidden" name="a" id="a" value="10">
+        <input type="hidden" name="b" id="b" value="45">
+        <input type="button" value="Submit" onclick="return loadXMLDoc()">
+    </form>
+    <div id="myDiv"></div>
 
 </div>
 

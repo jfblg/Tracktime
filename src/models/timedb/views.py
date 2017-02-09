@@ -29,8 +29,10 @@ def get_last_x():
     # position = int(request.form['position'])
     # output = output[-position:]
     # return render_template('timedb/timetable.html', data=output)
-    a = request.form.get('a', 1, type=int)
+    a = request.form.get('a', 0, type=int)
     b = request.form.get('b', 0, type=int)
-    print(request.form['username'])
+    print(request.form.get('a'))
+    # print(request.form['username'])
     return jsonify(result=a + b)
-    # return jsonify(result=output)
+    # return "abc"
+    # # return jsonify(result=output)
