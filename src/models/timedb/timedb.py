@@ -19,7 +19,7 @@ class TimeDbModel(db.Model):
     def json(self):
         return {
             "id": self.id,
-            "time_measured": self.time_measured,
+            "time_measured": str(self.time_measured)[:-4],
             "order_number": self.order_number
         }
 

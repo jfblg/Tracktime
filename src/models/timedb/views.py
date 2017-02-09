@@ -25,14 +25,15 @@ def list():
 
 @timedb_blueprint.route('/_last_x_times', methods=['POST'])
 def get_last_x():
-    # output = [(item.id, item.time_measured, item.order_number) for item in TimeDbModel.list_all()]
-    # position = int(request.form['position'])
-    # output = output[-position:]
-    # return render_template('timedb/timetable.html', data=output)
-    a = request.form.get('a', 0, type=int)
-    b = request.form.get('b', 0, type=int)
-    print(request.form.get('a'))
+    output = [(item.id, str(item.time_measured)[:-4], item.order_number) for item in TimeDbModel.list_all()]
+    # output = [item.json() for item in TimeDbModel.list_all()]
+    position = request.form.get('position',0, type=int)
+    print(position)
+    output = output[-position:]
+    print(output)
+
     # print(request.form['username'])
-    return jsonify(result=a + b)
+    # return jsonify(result=result)
+    return render_template('timedb/timetable.html', data=output)
     # return "abc"
     # # return jsonify(result=output)
