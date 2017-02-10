@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='Tracktime',
-    version='',
+    version='0.1',
     packages=['src.models.participants', 'venv.lib.python3.5.distutils', 'venv.lib.python3.5.encodings',
               'venv.lib.python3.5.importlib', 'venv.lib.python3.5.collections', 'venv.lib.python3.5.site-packages.pip',
               'venv.lib.python3.5.site-packages.pip.req', 'venv.lib.python3.5.site-packages.pip.vcs',
@@ -77,8 +77,8 @@ setup(
               'venv.lib.python3.5.site-packages.pkg_resources._vendor.packaging',
               'venv.lib.python3.5.site-packages.flask_sqlalchemy'],
     url='',
-    license='',
+    license='MIT',
     author='ferojanus',
-    author_email='',
-    description=''
+    author_email='inbox.jfblg@gmail.com',
+    description='Flask based web app for time management during an small athletic event.'
 )
