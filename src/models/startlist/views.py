@@ -1,6 +1,7 @@
 from flask import Blueprint, request, render_template, session, redirect, url_for
 from src.models.categories.categories import CategoryModel, CategoryAddForm
 from src.models.startlist.startlist import StartlistModel, StartlistNameModel
+from src.models.timedb.timedb import TimeDbModel
 import src.models.startlist.startlist_processing as startlist_processing
 from sqlalchemy import Time
 
@@ -88,6 +89,14 @@ def wizard_start():
     return render_template('startlist/create_new_wizard.html', data=startlist_display)
 
 
+@startlist_blueprint.route('/get_times', methods=['POST'])
+def get_times_from_db():
+    position = request.form.get('position', '0', type=int)
+    times = [item for item in TimeDbModel.list_all()]
+    print(position)
+    print(times)
+    return "Hello World"
+
 @startlist_blueprint.route('/wizard', methods=['GET', 'POST'])
 def wizard():
 
@@ -128,8 +137,13 @@ def wizard():
     session['startlist_round'] = startlist_round
 
     startlist_lines = len(startlist_round)
+
+    # not used at the moment
     random_times = time_random(startlist_lines)
-    session['random_times'] = random_times
+
+    # loading of the times from database
+    db_times = [str(item.time_measured)[2:-4] for item in TimeDbModel.list_all()][-startlist_lines:]
+    session['random_times'] = db_times
 
     progress_now = session['counter'] * 100 / startlist_instance.startlist_rounds
     progress_now_int = int(round(progress_now))
@@ -144,7 +158,7 @@ def wizard():
         startlist=startlist_round,
         progress_now=progress_now_int,
         startlist_lines=startlist_lines,
-        random_times=random_times
+        random_times=db_times
     )
 
 

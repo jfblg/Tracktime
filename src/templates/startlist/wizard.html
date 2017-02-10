@@ -46,7 +46,6 @@
                                 </ul>
                                 {% endfor %}
 
-
                             </div>
                         </div>
                     </div>
@@ -97,6 +96,12 @@
         </button>
     </div>
 
+    </form>
+
+    <br><br>
+    <form action="{{ url_for('startlist.wizard') }}" method="get">
+        <input type="hidden" id="position" name="position" value="4">
+        <input type="submit" class="btn btn-success">
     </form>
 
 

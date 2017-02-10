@@ -1,9 +1,90 @@
 {% extends "base.html" %}
 {% block content %}
 
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+</script>
+
 <div class="container">
 
-    <h1>Timetable</h1>
+    <h1>Time - table</h1>
+
+    {% if data %}
+    <div class="row">
+        <div class="dataTable_wrapper">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Time</th>
+                    <th>Order number</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for id, time, order in data %}
+                <tr>
+                    <td>{{ id }}</td>
+                    <td>{{ time }}</td>
+                    <td>{{ order }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% endif %}
+
+    <form action="{{ url_for('timedb.get_last_x') }}" method="POST">
+        <input type="hidden" name="position" value="6">
+        <input type="hidden" name="a" value="1">
+        <input type="hidden" name="b" value="3">
+        <input type="submit" value="Submit">
+    </form>
+    <br><br>
+
+    <script>
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+    function loadXMLDoc()
+    {
+        var req = new XMLHttpRequest()
+        req.onreadystatechange = function()
+        {
+            if (req.readyState == 4)
+            {
+                if (req.status != 200)
+                {
+                    //error handling code here
+                }
+                else
+                {
+                    var response = JSON.parse(req.responseText)
+                    document.getElementById('myDiv').innerHTML = response.result
+                }
+            }
+        }
+
+        req.open('POST', '/timedb/_last_x_times')
+        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+        var position = document.getElementById('position').value
+        var postVars = 'position='+position
+        req.send(postVars)
+
+        return false
+    }
+
+    </script>
+
+
+    <h1>Flask AJAX Test</h1>
+    <form action="" method="POST">
+        <input type="text" name="scname" id="scname">
+        <input type="hidden" name="position" id="position" value="3">
+        <input type="button" value="Submit" onclick="return loadXMLDoc()">
+    </form>
+    <div id="myDiv"></div>
 
 </div>
 

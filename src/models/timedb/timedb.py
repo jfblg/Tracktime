@@ -14,12 +14,12 @@ class TimeDbModel(db.Model):
     order_number = db.Column(db.Integer, nullable=False) # number received from TIMY3 [1-99]
 
     def __repr__(self):
-        return "<TimeDbModel(id='%s', time_measured='%s', order='%s')>" % (self.id, self.time_measured, self.oder_number)
+        return "<TimeDbModel(time_measured='%s', order='%s')>" % (self.time_measured, self.order_number)
 
     def json(self):
         return {
             "id": self.id,
-            "time_measured": self.time_measured,
+            "time_measured": str(self.time_measured)[:-4],
             "order_number": self.order_number
         }
 
