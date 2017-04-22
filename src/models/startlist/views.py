@@ -2,6 +2,7 @@ from flask import Blueprint, request, render_template, session, redirect, url_fo
 from src.models.categories.categories import CategoryModel, CategoryAddForm
 from src.models.startlist.startlist import StartlistModel, StartlistNameModel
 from src.models.timedb.timedb import TimeDbModel
+from src.models.timedb.timydb import TimyDbModel
 import src.models.startlist.startlist_processing as startlist_processing
 from sqlalchemy import Time
 
@@ -141,9 +142,13 @@ def wizard():
     # not used at the moment
     random_times = time_random(startlist_lines)
 
-    # loading of the times from database
-    db_times = [str(item.time_measured)[2:-4] for item in TimeDbModel.list_all()][-startlist_lines:]
-    session['random_times'] = db_times
+    # loading of the times from old database
+    # db_times = [str(item.time_measured)[2:-4] for item in TimeDbModel.list_all()][-startlist_lines:]
+    # session['random_times'] = db_times
+
+    # loading of the times from the external database
+    db_times_ext = [str(item.time_measured)[2:-4] for item in TimyDbModel.list_all()][-startlist_lines:]
+    session['random_times'] = db_times_ext
 
     progress_now = session['counter'] * 100 / startlist_instance.startlist_rounds
     progress_now_int = int(round(progress_now))
@@ -158,7 +163,7 @@ def wizard():
         startlist=startlist_round,
         progress_now=progress_now_int,
         startlist_lines=startlist_lines,
-        random_times=db_times
+        random_times=db_times_ext
     )
 
 
