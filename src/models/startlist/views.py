@@ -128,7 +128,6 @@ def wizard():
         session['counter']
     )]
 
-
     startlist_round = []
     for stm, ptm in found_records:
         record = (ptm.last_name, ptm.first_name, stm.start_position, stm.start_round, stm.id)

@@ -2,8 +2,13 @@
 {% block content %}
 
 <div class="container">
+
+    <div class="page-header">
+        <h2>Categories <span class="label label-default">{{ category_count }}</span></h2>
+    </div>
+
     <div class="dataTable_wrapper">
-        <table class="table table-striped table-bordered table-hover" id="dataTables-ap_inventory">
+        <table class="table table-striped table-bordered table-hover" id="dataTables-categories">
             <thead>
             <tr>
                 <th>Category name</th>
@@ -26,5 +31,17 @@
     </div>
 </div>
 <!-- /.table wrapper -->
+
+<script type=text/javascript src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
+<script type=text/javascript src="{{ url_for('static', filename='js/dataTables.bootstrap.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#dataTables-categories').DataTable({
+                "iDisplayLength": 50,
+                responsive: true,
+                "order": [[ 2, "asc" ]]
+        });
+    });
+</script>
 
 {% endblock %}

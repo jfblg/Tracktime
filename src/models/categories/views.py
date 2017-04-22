@@ -8,7 +8,8 @@ categories_blueprint = Blueprint('categories', __name__)
 @categories_blueprint.route('/list', methods=['GET'])
 def list():
     loaded_data = [category.json() for category in CategoryModel.list_all()]
-    return render_template('categories/categories_list.html', data=loaded_data)
+    category_count = len(loaded_data)
+    return render_template('categories/categories_list.html', data=loaded_data, category_count=category_count)
 
 
 @categories_blueprint.route('/add', methods=['GET', 'POST'])

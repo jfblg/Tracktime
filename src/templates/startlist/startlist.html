@@ -5,17 +5,19 @@
 
     {% for startlist in data %}
 
-    <h1>{{ startlist }} </h1>
+    <div class="page-header">
+        <h2>Name: {{ startlist }}</h2>
+    </div>
 
     <div class="row">
         <div class="dataTable_wrapper">
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th>Last Name</th>
-                    <th>First Name</th>
-                    <th>Round</th>
-                    <th>Start line</th>
+                    <th>Vorname</th>
+                    <th>Nachname</th>
+                    <th>Runde</th>
+                    <th>Start Position</th>
                 </tr>
                 </thead>
                 <tbody>

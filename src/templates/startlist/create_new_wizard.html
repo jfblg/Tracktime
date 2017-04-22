@@ -3,29 +3,42 @@
 
 <div class="container">
 
+    <div class="form-size">
 
-    <h1>Time measurement wizard</h1>
+        <div class="row">
 
-    <div>
-        <form method="POST" action="{{ url_for('startlist.wizard') }}">
+            <div class="page-header">
+                <h2>Start time recording</h2>
+            </div>
 
-            <p>Select startlist</p>
-            {% for st_id, st_name in data %}
-            <input type="radio" name="startlist_select" id="{{ st_name }}" value="{{ st_id }}">
-            <label for="{{ st_name }}">{{ st_name }}</label><br>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <b>Select startlist</b>
+                </div>
+                <div class="panel-body">
 
-            {% endfor %}
+                    <form method="post" action="{{ url_for('startlist.wizard') }}">
 
-            <br>
+                        {% for st_id, st_name in data %}
+                        <input type="radio" name="startlist_select" id="{{ st_name }}" value="{{ st_id }}">
+                        <label for="{{ st_name }}">{{ st_name }}</label><br>
+                        {% endfor %}
 
-            <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Start the wizard</button>
+                        <br>
 
-        </form>
+                        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span>Start!</button>
+                    </form>
+                </div>
+                <!-- panel body-->
+            </div>
+            <!-- panel -->
+
+        </div>
+        <!-- row -->
+        {% block message %}
+        {% endblock %}
+
     </div>
-
-
-    {% block success %}
-    {% endblock %}
+    <!-- form-size -->
 </div>
-
 {% endblock %}

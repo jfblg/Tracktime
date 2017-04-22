@@ -3,30 +3,43 @@
 
 <div class="container">
 
+    <div class="form-size">
 
-    <h1>Show results</h1>
-    <h3>...for already measured startlists</h3>
+        <div class="row">
 
-    <div>
-        <form method="post" action="{{ url_for('startlist.results_specific_startlist') }}">
+            <div class="page-header">
+                <h2>Results</h2>
+            </div>
 
-            <p>Select startlist for results</p>
-            {% for st_id, st_name in data %}
-            <input type="radio" name="startlist_select" id="{{ st_name }}" value="{{ st_id }}">
-            <label for="{{ st_name }}">{{ st_name }}</label><br>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Select startlist (only completed ones are displayed)
+                </div>
+                <div class="panel-body">
 
-            {% endfor %}
+                    <form method="post" action="{{ url_for('startlist.results_specific_startlist') }}">
 
-            <br>
+                        {% for st_id, st_name in data %}
+                        <input type="radio" name="startlist_select" id="{{ st_name }}" value="{{ st_id }}">
+                        <label for="{{ st_name }}">{{ st_name }}</label><br>
+                        {% endfor %}
 
-            <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Show results</button>
+                        <br>
 
-        </form>
+                        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span>Show results</button>
+                    </form>
+                </div>
+                <!-- panel body-->
+            </div>
+            <!-- panel -->
+
+        </div>
+        <!-- row -->
+        {% block message %}
+        {% endblock %}
+
     </div>
-
-
-    {% block success %}
-    {% endblock %}
+    <!-- form-size -->
 </div>
 
 {% endblock %}

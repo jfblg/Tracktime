@@ -15,14 +15,13 @@
 
 </head>
 <body>
-
-
+{% include 'dependencies_js.html' %}
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
 
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Tracktime</a>
+            <a class="navbar-brand" href="/">Tracktime</a>
         </div>
 
         <div class="collapse navbar-collapse" id="navbar-dropdown">
@@ -33,8 +32,10 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Participants <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url_for('participants.add')}}">Add</a></li>
-                        <li><a href="{{ url_for('participants.list')}}">List</a></li>
+                        <li><a href="{{ url_for('participants.add')}}">Add one</a></li>
+                        <li><a href="{{ url_for('participants.mass_import')}}">Add many</a></li>
+                        <li><a href=#>Delete one</a></li>
+                        <li><a href="{{ url_for('participants.list')}}">List all</a></li>
                     </ul>
                 </li>
 
@@ -42,8 +43,9 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Categories <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url_for('categories.add')}}">Add</a></li>
-                        <li><a href="{{ url_for('categories.list')}}">List</a></li>
+                        <li><a href="{{ url_for('categories.add')}}">Add one</a></li>
+                        <li><a href=#>Delete one</a></li>
+                        <li><a href="{{ url_for('categories.list')}}">List all</a></li>
                     </ul>
                 </li>
 
@@ -51,22 +53,37 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Startlist <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url_for('startlist.create_startlist')}}">Add</a></li>
+                        <li><a href="{{ url_for('startlist.create_startlist')}}">Create new - category</a></li>
+                        <li><a href=#>Create new - classification </a></li>
+                        <li><a href="{{ url_for('startlist.startlist')}}">List all</a></li>
+
                         <li><a href="{{ url_for('startlist.add_time')}}">Add Time to Runner</a></li>
-                        <li><a href="{{ url_for('startlist.startlist')}}">Show all</a></li>
-                        <li><a href="{{ url_for('startlist.results')}}">Results</a></li>
-                        <li><a href="{{ url_for('startlist.wizard_start')}}">Wizard</a></li>
                     </ul>
                 </li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Time DB <span class="caret"></span></a>
+                       aria-expanded="false">Record Times <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('startlist.wizard_start')}}">Start</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Results <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('startlist.results')}}">By startlist</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Experimental <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ url_for('timedb.list')}}">List</a></li>
                     </ul>
                 </li>
-
             </ul>
         </div>
 

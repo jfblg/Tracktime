@@ -3,22 +3,12 @@
 <div id="result2">
 
     <script type=text/javascript src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
+
     <script type=text/javascript>
   $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-
-
-
     </script>
 
     <div class="container">
-
-        <!--<script>-->
-        <!--$.on('ready', function() {-->
-        <!--$('#result').load('/sharedata')-->
-        <!--})-->
-
-        <!--</script>-->
-
 
         <script type=text/javascript>
   $(function() {
@@ -26,8 +16,6 @@
         $("#result2").load('/timedb/_ajax_reload_table');
     });
   });
-
-
         </script>
 
         <p><a href=# id=reload_table>Reload table</a>
@@ -72,7 +60,6 @@
       return false;
     });
   });
-
 
         </script>
 
