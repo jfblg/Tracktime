@@ -3,103 +3,113 @@
 
 <div class="container">
 
-
-    <h3>Name: {{ name }}</h3>
-    <h3>Current Round: {{ session['counter'] }}</h3>
-
-    <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="{{ progress_now }}" aria-valuemin="0"
-             aria-valuemax="100"
-             style="width: {{ progress_now }}%;">
-            {{ progress_now }}%
-        </div>
-    </div>
-    <br>
-
-    <div class="panel panel-default">
-        <div class="panel-body">
-
-            <form method="POST" action="{{ url_for('startlist.next_round')}}">
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="panel panel-danger">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Measured times</h3>
-                            </div>
-                            <div class="panel-body">
-
-
-                                {% for random_t in random_times %}
-
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <span class="badge pull-left">{{ random_t }}</span>
-                                        Time {{ loop.index }} - select line:
-                                        <select name="{{ loop.index0 }}" id="{{ loop.index0 }}">
-                                            {% for _ in random_times %}
-                                            <option value="{{ loop.index }}">{{ loop.index }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </li>
-                                </ul>
-                                {% endfor %}
-
-                            </div>
-
-                            <p><a href="{{ url_for('startlist.wizard')}}" id=reload_table>Reload table</a>
-
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Starting positions for each line</h3>
-                            </div>
-                            <div class="panel-body">
-
-                                <div class="dataTable_wrapper">
-                                    <table class="table table-striped table-bordered table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th>Start line</th>
-                                            <th>Last Name</th>
-                                            <th>First Name</th>
-
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for last_name, first_name, start_position, start_round, start_id in startlist
-                                        %}
-                                        <tr>
-                                            <td>{{ start_position }}</td>
-                                            <td>{{ last_name }}</td>
-                                            <td>{{ first_name }}</td>
-                                        </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </div>
+    <div class="row">
+        <h3>Name: {{ name }}</h3>
+        <h3>Current Round: {{ session['counter'] }}</h3>
     </div>
     <div class="row">
-        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> NEXT
-        </button>
+        <p><b>Progress (in the whole startlist):</b></p>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{ progress_now }}" aria-valuemin="0"
+                 aria-valuemax="100"
+                 style="width: {{ progress_now }}%;">
+                {{ progress_now }}%
+            </div>
+        </div>
     </div>
 
+    <div class="row bottom-buffer-20">
+        <a href="{{ url_for('startlist.wizard')}}">
+            <button type="submit" class="btn btn-block btn-danger">
+                <span class="glyphicon glyphicon glyphicon-import"></span>
+                Load the latest captured times from Database
+            </button>
+        </a>
+        <div class="panel">
+        </div>
+    </div>
+
+    <form method="POST" action="{{ url_for('startlist.next_round')}}">
+        <div class="row">
+            <div class="col-md-4">
+
+
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Measured times</h3>
+                    </div>
+                    <div class="panel-body">
+
+
+                        {% for random_t in random_times %}
+
+                        <ul class="list-group">
+                            <li class="list-group-item">
+
+                                <h3>Time {{ loop.index }}: <span class="label label-danger">{{ random_t }}</span></h3>
+                                Assigne to the line:
+                                <select name="{{ loop.index0 }}" id="{{ loop.index0 }}">
+                                    {% for _ in random_times %}
+                                    <option value="{{ loop.index }}">{{ loop.index }}</option>
+                                    {% endfor %}
+                                </select>
+                            </li>
+                        </ul>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-8">
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Starting positions for each line</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Start line</th>
+                                    <th>Last Name</th>
+                                    <th>First Name</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for last_name, first_name, start_position, start_round, start_id in startlist
+                                %}
+                                <tr>
+                                    <td>{{ start_position }}</td>
+                                    <td>{{ last_name }}</td>
+                                    <td>{{ first_name }}</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row bottom-buffer-50">
+
+            <button type="submit" class="btn btn-block btn-success">
+                <span class="glyphicon glyphicon glyphicon-floppy-save"></span>
+                Save times and show the next round...
+                <span class="glyphicon glyphicon-arrow-right"></span>
+            </button>
+            <div class="panel">
+        </div>
+        </div>
+
     </form>
 
-    <br><br>
-    <form action="{{ url_for('startlist.wizard') }}" method="get">
-        <input type="hidden" id="position" name="position" value="4">
-        <input type="submit" class="btn btn-success">
-    </form>
 </div>
 
 {% endblock %}
+

@@ -86,7 +86,7 @@ def convert_time_to_delta(time_entered):
 def wizard_start():
     # clearing session counter
     clearsession()
-    startlist_display = [(st.id, st.name) for st in StartlistNameModel.list_all()]
+    startlist_display = [(st.id, st.name) for st in StartlistNameModel.list_all() if not st.measured_flag]
     return render_template('startlist/create_new_wizard.html', data=startlist_display)
 
 
@@ -214,9 +214,8 @@ def results_specific_startlist():
 
 @startlist_blueprint.route('/results_all', methods=['GET'])
 def results_all():
-    startlist_finished = [(stlist.id, stlist.name) for stlist in StartlistNameModel.list_measured_all()]
-
-    return render_template('startlist/results_finished_startlists.html', data=startlist_finished)
+    data = startlist_processing.results_all()
+    return render_template('startlist/results_finished_startlists.html', data=data)
 
 
 @startlist_blueprint.route('/findrunner', methods=['GET', 'POST'])

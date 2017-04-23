@@ -125,6 +125,15 @@ def result_list_generate(startlist_id):
     return output_list
 
 
+def results_all():
+    results = {}
+    startlists_finished = [(stlist.id, stlist.name) for stlist in StartlistNameModel.list_measured_all()]
+    for startlist_id, startlist_name in startlists_finished:
+        results[startlist_name] = result_list_generate(startlist_id)
+
+    return results
+
+
 def get_participants():
     return ParticipantModel.list_all()
 
