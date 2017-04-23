@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+    <div class="form-size">
+
+        <div class="row">
+
+            <div class="page-header">
+                <h2>Create new startlist</h2>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Define new startlist
+                </div>
+                <div class="panel-body">
+
+                    <form method="post" action="{{ url_for('startlist.generate_startlist_category')}}">
+
+                        <div class="form-group">
+                            <label>Startlist name:</label>
+                            <input type="text" class="form-control" id="startlist_name" name="startlist_name">
+                            <p class="help-block">No empty spaces!</p>
+                        </div>
+
+                        <p><b>Choose category:</b></p>
+                        {% for cat_id, cat_name in categories %}
+                        <input type="radio" name="startlist_category" id="{{ cat_name }}" value="{{ cat_id }}">
+                        <label for="{{ cat_name }}">{{ cat_name }}</label><br>
+                        {% endfor %}
+
+                        <br>
+
+                        <p><b>Number of start lines</b></p>
+                        <select name="startlist_lines" id="startlist_lines">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6" selected="selected">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        <br>
+                        <br>
+
+                        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Create</button>
+                        <a type="reset" class="btn btn-danger" href="{{ url_for('startlist.create_startlist_category') }}"><span
+                                class="glyphicon glyphicon-erase"></span> Clear all</a>
+                    </form>
+                </div>
+                <!-- panel body-->
+            </div>
+            <!-- panel -->
+
+        </div>
+        <!-- row -->
+        {% block message %}
+        {% endblock %}
+
+    </div>
+    <!-- form-size -->
+</div>
+
+{% endblock %}

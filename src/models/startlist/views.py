@@ -250,14 +250,14 @@ def add_time():
     return render_template('startlist/add_time.html')
 
 
-@startlist_blueprint.route('/create', methods=['GET'])
-def create_startlist():
+@startlist_blueprint.route('/create_category', methods=['GET'])
+def create_startlist_category():
     defined_categories = [(category.id, category.category_name) for category in CategoryModel.list_all()]
-    return render_template('startlist/create_new_list.html', categories=defined_categories)
+    return render_template('startlist/create_new_list_category.html', categories=defined_categories)
 
 
 @startlist_blueprint.route('/startlist_created', methods=['POST'])
-def generate():
+def generate_startlist_category():
     if request.method == 'POST':
         startlist_name = request.form['startlist_name'].strip()
         startlist_lines = request.form['startlist_lines']
@@ -279,9 +279,7 @@ def generate():
         )
         new_startlist.save_to_db()
 
-    # TODO zobraz zoznam startujucich v novovytvorenom liste
-
-    return redirect(url_for('.create_startlist'))
+    return redirect(url_for('.create_startlist_category'))
 
 
 def time_random(number_of_random_times):
