@@ -9,11 +9,12 @@
 
             <div class="page-header">
                 <h2>Create new startlist</h2>
+                <small> from a category</small>
             </div>
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Define new startlist
+                    Define new category startlist
                 </div>
                 <div class="panel-body">
 
@@ -22,7 +23,7 @@
                         <div class="form-group">
                             <label>Startlist name:</label>
                             <input type="text" class="form-control" id="startlist_name" name="startlist_name">
-                            <p class="help-block">No empty spaces!</p>
+                            <p class="help-block">Always a unique name.</p>
                         </div>
 
                         <p><b>Choose category:</b></p>
@@ -49,9 +50,10 @@
                         <br>
                         <br>
 
-                        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Create</button>
-                        <a type="reset" class="btn btn-danger" href="{{ url_for('startlist.create_startlist_category') }}"><span
-                                class="glyphicon glyphicon-erase"></span> Clear all</a>
+                        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span>Create</button>
+                        <a type="reset" class="btn btn-danger"
+                           href="{{ url_for('startlist.create_startlist_category') }}">
+                            <span class="glyphicon glyphicon-erase"></span> Clear all</a>
                     </form>
                 </div>
                 <!-- panel body-->

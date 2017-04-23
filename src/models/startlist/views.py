@@ -10,7 +10,7 @@ import time
 import datetime
 import random
 
-import pprint
+from pprint import pprint as pp
 
 startlist_blueprint = Blueprint('startlist', __name__)
 
@@ -197,25 +197,26 @@ def minus_session_counter():
 @startlist_blueprint.route('/results', methods=['GET', 'POST'])
 def results():
     startlist_finished = [(stlist.id, stlist.name) for stlist in StartlistNameModel.list_measured_all()]
-    return render_template('startlist/results_finished_startlists.html', data=startlist_finished)
+    return render_template('startlist/results_finished_startlists_menu.html', data=startlist_finished)
 
 
 @startlist_blueprint.route('/result_startlist', methods=['POST'])
 def results_specific_startlist():
     startlist_id = request.form['startlist_select']
+
     startlist_instance = StartlistNameModel.get_by_id(startlist_id)
-
-    result_records = [result for result in StartlistModel.get_records_by_startlist_id_order_by_time(startlist_id)]
-
-    output_list = []
-    for st, pt in result_records:
-        result_item = (pt.last_name, pt.first_name, st.time_measured)
-        output_list.append(result_item)
-
+    output_list = startlist_processing.result_list_generate(startlist_id)
 
     return render_template('startlist/results_specific_startlist.html',
                            startlist_name=startlist_instance.name,
                            data=output_list)
+
+
+@startlist_blueprint.route('/results_all', methods=['GET'])
+def results_all():
+    startlist_finished = [(stlist.id, stlist.name) for stlist in StartlistNameModel.list_measured_all()]
+
+    return render_template('startlist/results_finished_startlists.html', data=startlist_finished)
 
 
 @startlist_blueprint.route('/findrunner', methods=['GET', 'POST'])
@@ -256,9 +257,10 @@ def create_startlist_category():
     return render_template('startlist/create_new_list_category.html', categories=defined_categories)
 
 
-@startlist_blueprint.route('/startlist_created', methods=['POST'])
+@startlist_blueprint.route('/startlist_created_cat', methods=['POST'])
 def generate_startlist_category():
     if request.method == 'POST':
+        print(request.form)
         startlist_name = request.form['startlist_name'].strip()
         startlist_lines = request.form['startlist_lines']
         startlist_category = request.form['startlist_category']
@@ -280,6 +282,51 @@ def generate_startlist_category():
         new_startlist.save_to_db()
 
     return redirect(url_for('.create_startlist_category'))
+
+
+@startlist_blueprint.route('/create_classification', methods=['GET'])
+def create_startlist_classification():
+    # TODO pass number of athletes in each finished startlist to the template.
+
+    startlist_finished = [(stlist.id, stlist.name) for stlist in StartlistNameModel.list_measured_all()]
+
+    return render_template('startlist/create_new_list_classification.html', startlist_finished=startlist_finished)
+
+
+@startlist_blueprint.route('/startlist_created_class', methods=['POST'])
+def generate_startlist_classfication():
+    if request.method == 'POST':
+        # print(request.form)
+
+        startlist_finished_id = request.form['startlist_select']
+        startlist_name = request.form['startlist_name'].strip()
+        startlist_top_times = int(request.form['startlist_top_times'])
+        startlist_lines = request.form['startlist_lines']
+
+        new_startlist = StartlistNameModel(startlist_name, startlist_lines)
+        new_startlist.save_to_db()
+
+        # Note: Not used at the moment
+        # startlist_finished_instance = StartlistNameModel.get_by_id(startlist_finished_id)
+
+        startlist_finished_results_ordered = \
+            [result for result in StartlistModel.get_records_by_startlist_id_order_by_time(startlist_finished_id)]\
+            [:startlist_top_times]
+
+        # removing Participant objects from a tuples
+        startlist_finished_only_results_ordered = [startlist_record for startlist_record, _ in startlist_finished_results_ordered]
+
+        # generating new startlist record instances, startline numbers and rounds assignment
+        new_startlist.startlist_rounds = startlist_processing.process_classification(
+            new_startlist.id,
+            startlist_finished_only_results_ordered,
+            int(startlist_lines)
+        )
+        new_startlist.save_to_db()
+
+    return redirect(url_for('.create_startlist_classification'))
+
+
 
 
 def time_random(number_of_random_times):

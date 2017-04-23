@@ -54,9 +54,9 @@
                        aria-expanded="false">Startlist <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ url_for('startlist.create_startlist_category')}}">Create new - category</a></li>
-                        <li><a href=#>Create new - classification </a></li>
+                        <li><a href="{{ url_for('startlist.create_startlist_classification')}}">Create new - classification</a></li>
+                        <li><a href=#>List one</a></li>
                         <li><a href="{{ url_for('startlist.startlist')}}">List all</a></li>
-
                         <li><a href="{{ url_for('startlist.add_time')}}">Add Time to Runner</a></li>
                     </ul>
                 </li>
@@ -73,7 +73,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Results <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url_for('startlist.results')}}">By startlist</a></li>
+                        <li><a href="{{ url_for('startlist.results')}}">List one</a></li>
+                        <li><a href=#>List all</a></li>
                     </ul>
                 </li>
 

@@ -3,7 +3,7 @@ from wtforms import Form, IntegerField, StringField, validators
 
 from src.models.categories.categories import CategoryModel
 from src.models.participants.participants import ParticipantModel
-from src.models.startlist.startlist import StartlistModel
+from src.models.startlist.startlist import StartlistModel, StartlistNameModel
 
 
 def main():
@@ -62,6 +62,67 @@ def process(startlist_id, category_id, startline_count):
         start_record.save_to_db()
 
     return start_round
+
+
+def process_classification(startlist_id, start_records_instances, startline_count):
+
+    # Assignment of start start_position and start round
+    start_position = range_generator(startline_count)
+    start_round = 1
+
+    for start_record_old in start_records_instances:
+        try:
+            start_record = StartlistModel(
+                startlist_id = startlist_id,
+                category_id=start_record_old.category_id,
+                participant_id=start_record_old.participant_id,
+                start_position=next(start_position),
+                start_round=start_round
+            )
+        except StopIteration:
+            start_position = range_generator(startline_count)
+            start_round += 1
+            start_record = StartlistModel(
+                startlist_id=startlist_id,
+                category_id=start_record_old.category_id,
+                participant_id=start_record_old.participant_id,
+                start_position=next(start_position),
+                start_round=start_round
+            )
+        # print(start_record.json())
+        start_record.save_to_db()
+
+    return start_round
+
+
+def result_list_generate(startlist_id):
+
+    # Note: Not used at the moment
+    # startlist_instance = StartlistNameModel.get_by_id(startlist_id)
+
+    result_records = [result for result in StartlistModel.get_records_by_startlist_id_order_by_time(startlist_id)]
+
+    output_list = []
+    for st, pt in result_records:
+
+        # Note: 2 decimal digits are displayed for times in results
+        display_time = str(st.time_measured)[2:-4]
+
+        # Note: Leading zeroes are stripped away
+        # if display_time.startswith("00:0"):
+        #     display_time = display_time[4:]
+        #     print("00:0")
+        # if display_time.startswith("00:"):
+        #     print("00:")
+        #     display_time = display_time[3:]
+        # if display_time.startswith("0"):
+        #     print("0")
+        #     display_time = display_time[1:]
+
+        result_item = (pt.last_name, pt.first_name, display_time)
+        output_list.append(result_item)
+
+    return output_list
 
 
 def get_participants():

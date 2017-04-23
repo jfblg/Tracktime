@@ -9,30 +9,37 @@
 
             <div class="page-header">
                 <h2>Create new startlist</h2>
+                <small> from another startlist</small>
             </div>
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Define new startlist
+                    Define new classification startlist
                 </div>
                 <div class="panel-body">
 
-                    <form method="post" action="{{ url_for('startlist.generate')}}">
+                    <form method="post" action="{{ url_for('startlist.generate_startlist_classfication') }}">
 
-                        <div class="form-group">
-                            <label>Startlist name:</label>
-                            <input type="text" class="form-control" id="startlist_name" name="startlist_name">
-                            <p class="help-block">No empty spaces!</p>
-                        </div>
-
-                        <p><b>Choose category:</b></p>
-                        {% for cat_id, cat_name in categories %}
-                        <input type="radio" name="startlist_category" id="{{ cat_name }}" value="{{ cat_id }}">
-                        <label for="{{ cat_name }}">{{ cat_name }}</label><br>
+                        <p><b>Choose source startlist:</b></p>
+                        {% for st_id, st_name in startlist_finished %}
+                        <input type="radio" name="startlist_select" id="{{ st_name }}" value="{{ st_id }}">
+                        <label for="{{ st_name }}">{{ st_name }}</label><br>
                         {% endfor %}
 
                         <br>
 
+                        <div class="form-group">
+                            <label>Startlist name:</label>
+                            <input type="text" class="form-control" id="startlist_name" name="startlist_name">
+                            <p class="help-block">Always a unique name.</p>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label>Top times to the next round:</label>
+                            <input type="text" class="form-control" id="startlist_top_times" name="startlist_top_times">
+                            <p class="help-block">Enter only number</p>
+                        </div>
+                        <br>
                         <p><b>Number of start lines</b></p>
                         <select name="startlist_lines" id="startlist_lines">
                             <option value="1">1</option>
@@ -49,9 +56,11 @@
                         <br>
                         <br>
 
-                        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Create</button>
-                        <a type="reset" class="btn btn-danger" href="{{ url_for('startlist.create_startlist') }}"><span
-                                class="glyphicon glyphicon-erase"></span> Clear all</a>
+                        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span>Create</button>
+                        <a type="reset" class="btn btn-danger"
+                           href="{{ url_for('startlist.create_startlist_classification') }}">
+                            <span class="glyphicon glyphicon-erase"></span> Clear all</a>
+
                     </form>
                 </div>
                 <!-- panel body-->
