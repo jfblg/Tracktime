@@ -17,34 +17,26 @@ startlist_blueprint = Blueprint('startlist', __name__)
 
 @startlist_blueprint.route('/', methods=['GET', 'POST'])
 def startlist():
-    # Uncomment to re-process the start list. Working only when the start list is empty.
-    # process(4)
-    output = []
+    output = startlist_processing.get_startlist_all_frontend()
+    return render_template('startlist/startlist_all.html', data=output)
 
-    # print(time.gmtime(0))
-    # print(time.time())
-    # print(time.clock())
-    # time_d = datetime.datetime.now() - datetime.timedelta(hours=24)
-    # print(datetime.timedelta(hours=1, minutes=15, milliseconds=1456))
-    #
-    # time1 = datetime.datetime.strptime('12:34.43', '%M:%S.%f')
-    # time2 = datetime.datetime.strptime('12:34.4332', '%M:%S.%f')
-    # print(time1 < time2)
 
-    startlists = [startlist_def for startlist_def in StartlistNameModel.list_all()]
+@startlist_blueprint.route('/list_all', methods=['GET', 'POST'])
+def startlist_menu():
+    startlist_all = [(stlist.id, stlist.name) for stlist in StartlistNameModel.list_all()]
+    return render_template('startlist/startlist_one_menu.html', data=startlist_all)
 
-    output = {}
 
-    for st in startlists:
-        stlist_records = StartlistModel.get_records_by_startlist_id(st.id)
-        records_list = []
-        for ST, PT in stlist_records:
-            save_obj_tup = (PT.last_name, PT.first_name, ST.start_round, ST.start_position)
-            records_list.append(save_obj_tup)
+@startlist_blueprint.route('/startlist_one', methods=['POST'])
+def startlist_one():
+    startlist_id = request.form['startlist_select']
+    startlist_instance = StartlistNameModel.get_by_id(startlist_id)
 
-        output[st.name] = records_list
+    output_list = startlist_processing.startlist_generate(startlist_id)
 
-    return render_template('startlist/startlist.html', data=output)
+    return render_template('startlist/startlist_one.html',
+                           startlist_name=startlist_instance.name,
+                           data=output_list)
 
 
 @startlist_blueprint.route('/next', methods=['GET', 'POST'])

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+    <div class="form-size">
+
+        <div class="row">
+
+            <div class="page-header">
+                <h2>Startlists</h2>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Select startlist
+                </div>
+                <div class="panel-body">
+
+                    <form method="post" action="{{ url_for('startlist.startlist_one') }}">
+
+                        {% for st_id, st_name in data %}
+                        <input type="radio" name="startlist_select" id="{{ st_name }}" value="{{ st_id }}">
+                        <label for="{{ st_name }}">{{ st_name }}</label><br>
+                        {% endfor %}
+
+                        <br>
+
+                        <button type="submit" class="btn btn-success">
+                            <span class="fa fa-check"></span>
+                            List selected startlist
+                        </button>
+                    </form>
+                </div>
+                <!-- panel body-->
+            </div>
+            <!-- panel -->
+
+        </div>
+        <!-- row -->
+        {% block message %}
+        {% endblock %}
+
+    </div>
+    <!-- form-size -->
+</div>
+
+{% endblock %}

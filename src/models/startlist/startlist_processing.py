@@ -134,6 +134,31 @@ def results_all():
     return results
 
 
+def get_startlist_instances():
+    return [startlist_def for startlist_def in StartlistNameModel.list_all()]
+
+
+def startlist_generate(startlist_id):
+
+    records_list = []
+    stlist_records = StartlistModel.get_records_by_startlist_id(startlist_id)
+
+    for ST, PT in stlist_records:
+        save_obj_tup = (PT.last_name, PT.first_name, ST.start_round, ST.start_position)
+        records_list.append(save_obj_tup)
+
+    return records_list
+
+
+def get_startlist_all_frontend():
+
+    output = {}
+    startlists = get_startlist_instances()
+    for item in startlists:
+        output[item.name] = startlist_generate(item.id)
+
+    return output
+
 def get_participants():
     return ParticipantModel.list_all()
 
