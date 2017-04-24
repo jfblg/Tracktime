@@ -48,6 +48,14 @@ def next_round():
             received_values.append(request.form[str(index)])
 
         received_values = [int(value) for value in received_values]
+
+        # Note: Verification if the received values are unique.
+        # There cannot be 2 times assigned to the same starting line
+        received_values_set = set(received_values)
+        if len(received_values_set) != len(received_values):
+            session['wrong_entry'] = 1
+            return redirect(url_for('startlist.wizard'))
+
         results_possition = dict(zip(received_values, session['random_times']))
 
         results_id = []
@@ -144,9 +152,23 @@ def wizard():
     progress_now = session['counter'] * 100 / startlist_instance.startlist_rounds
     progress_now_int = int(round(progress_now))
 
-    # print(startlist1.name)
-    # print(startlist1.startline_count)
-    # print(startlist1.startlist_rounds)
+    # Note: Verification if the site has been reloaded due to wrong assignment of startlines by user.
+    # redirected from next_round() function.
+    try:
+        if session['wrong_entry'] == 1:
+            session['wrong_entry'] = 0
+
+            return render_template(
+                'startlist/wizard_wrong_entry.html',
+                name=startlist_instance.name,
+                startlist=startlist_round,
+                progress_now=progress_now_int,
+                startlist_lines=startlist_lines,
+                random_times=db_times_ext
+            )
+
+    except KeyError:
+        pass
 
     return render_template(
         'startlist/wizard.html',

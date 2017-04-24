@@ -29,6 +29,10 @@
         </div>
     </div>
 
+    {% block message %}
+
+    {% endblock %}
+
     <form method="POST" action="{{ url_for('startlist.next_round')}}">
         <div class="row">
             <div class="col-md-4">
