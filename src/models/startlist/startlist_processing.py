@@ -150,14 +150,28 @@ def startlist_generate(startlist_id):
     return records_list
 
 
+def startlist_generate_length(startlist_id):
+    return len(startlist_generate(startlist_id))
+
+
 def get_startlist_all_frontend():
 
+    # contains startlist records
     output = {}
+
+    # contains length of the startlists - used for highlighting of a 1 athlete in a round.
+    output_length = {}
+
     startlists = get_startlist_instances()
     for item in startlists:
         output[item.name] = startlist_generate(item.id)
 
-    return output
+    for item in startlists:
+        output_length[item.name] = len(startlist_generate(item.id))
+
+    print(output_length)
+
+    return output, output_length
 
 def get_participants():
     return ParticipantModel.list_all()

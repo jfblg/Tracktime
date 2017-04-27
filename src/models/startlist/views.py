@@ -17,8 +17,9 @@ startlist_blueprint = Blueprint('startlist', __name__)
 
 @startlist_blueprint.route('/', methods=['GET', 'POST'])
 def startlist():
-    output = startlist_processing.get_startlist_all_frontend()
-    return render_template('startlist/startlist_all.html', data=output)
+    output, output_length = startlist_processing.get_startlist_all_frontend()
+
+    return render_template('startlist/startlist_all.html', data=output, length=output_length)
 
 
 @startlist_blueprint.route('/list_all', methods=['GET', 'POST'])
@@ -33,10 +34,12 @@ def startlist_one():
     startlist_instance = StartlistNameModel.get_by_id(startlist_id)
 
     output_list = startlist_processing.startlist_generate(startlist_id)
+    output_length = startlist_processing.startlist_generate_length(startlist_id)
 
     return render_template('startlist/startlist_one.html',
                            startlist_name=startlist_instance.name,
-                           data=output_list)
+                           data=output_list,
+                           length=output_length)
 
 
 @startlist_blueprint.route('/next', methods=['GET', 'POST'])
