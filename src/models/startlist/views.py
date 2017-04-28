@@ -41,6 +41,25 @@ def startlist_one():
                            data=output_list,
                            length=output_length)
 
+@startlist_blueprint.route('/list_all_edit', methods=['GET', 'POST'])
+def startlist_menu_edit():
+    startlist_all = [(stlist.id, stlist.name) for stlist in StartlistNameModel.list_all()]
+    return render_template('startlist/startlist_one_menu_edit.html', data=startlist_all)
+
+
+@startlist_blueprint.route('/startlist_one_edit', methods=['POST'])
+def startlist_one_edit():
+    startlist_id = request.form['startlist_select']
+    startlist_instance = StartlistNameModel.get_by_id(startlist_id)
+
+    output_list = startlist_processing.startlist_generate(startlist_id)
+    output_length = startlist_processing.startlist_generate_length(startlist_id)
+
+    return render_template('startlist/startlist_one_edit.html',
+                           startlist_name=startlist_instance.name,
+                           data=output_list,
+                           length=output_length)
+
 
 @startlist_blueprint.route('/next', methods=['GET', 'POST'])
 def next_round():

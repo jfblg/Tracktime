@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+    <div class="page-header">
+        <h2>Edit mode for: {{ startlist_name }}</h2>
+    </div>
+
+    <div class="row">
+        <div class="dataTable_wrapper">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Vorname</th>
+                    <th>Nachname</th>
+                    <th>Runde</th>
+                    <th>Start Position</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for last_name, first_name, start_round, start_position in data %}
+                {% if start_position == 1 and loop.index == length %}
+                <tr class="danger">
+                    <td>{{ last_name }}</td>
+                    <td>{{ first_name }}</td>
+                    <td>{{ start_round }}</td>
+                    <td>{{ start_position }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td>{{ last_name }}</td>
+                    <td>{{ first_name }}</td>
+                    <td>{{ start_round }}</td>
+                    <td>{{ start_position }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br/><br/>
+
+</div>
+
+{% endblock %}

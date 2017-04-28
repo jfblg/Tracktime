@@ -17,7 +17,7 @@
                 </div>
                 <div class="panel-body">
 
-                    <form method="post" action="{{ url_for('startlist.startlist_one') }}">
+                    <form method="post" action="{{ url_for('startlist.startlist_one_edit') }}">
 
                         {% for st_id, st_name in data %}
                         <input type="radio" name="startlist_select" id="{{ st_name }}" value="{{ st_id }}">
@@ -28,7 +28,7 @@
 
                         <button type="submit" class="btn btn-success">
                             <span class="fa fa-check"></span>
-                            Show the startlist
+                            Edit the startlist
                         </button>
                     </form>
                 </div>
