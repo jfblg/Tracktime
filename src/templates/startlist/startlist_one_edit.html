@@ -25,13 +25,13 @@
 
                     </thead>
                     <tbody>
-                    {% for last_name, first_name, start_round, start_position in data %}
+                    {% for id, last_name, first_name, start_round, start_position in data %}
                     <tr>
                         <td>{{ last_name }}</td>
                         <td>{{ first_name }}</td>
 
                         <td>
-                            <select name="round_{{ loop.index0 }}" id="round_{{ loop.index0 }}">
+                            <select name="round_{{ id }}" id="round_{{ id }}">
                                 {% for _ in range(rounds) %}
                                 {% if loop.index == start_round %}
                                 <option value="{{ loop.index }}" selected="selected">{{ loop.index }}</option>
@@ -42,7 +42,7 @@
                             </select>
                         </td>
                         <td>
-                            <select name="position_{{ loop.index0 }}" id="position_{{ loop.index0 }}">
+                            <select name="position_{{ id }}" id="position_{{ id }}">
                                 {% for _ in range(line_count) %}
                                 {% if loop.index == start_position %}
                                 <option value="{{ loop.index }}" selected="selected">{{ loop.index }}</option>

@@ -1,12 +1,15 @@
 import json
 from pprint import pprint
 
+from collections import namedtuple
+
 from sqlalchemy import exc
 from wtforms import Form, IntegerField, StringField, validators
 from src.models.categories.categories import CategoryModel
 from src.models.participants.participants import ParticipantModel
 from src.models.startlist.startlist import StartlistModel, StartlistNameModel
 
+EditRecord = namedtuple("EditRecord", "round position")
 
 def main():
     pass
@@ -146,7 +149,7 @@ def startlist_generate(startlist_id):
     stlist_records = StartlistModel.get_records_by_startlist_id(startlist_id)
 
     for ST, PT in stlist_records:
-        save_obj_tup = (PT.last_name, PT.first_name, ST.start_round, ST.start_position)
+        save_obj_tup = (ST.id, PT.last_name, PT.first_name, ST.start_round, ST.start_position)
         records_list.append(save_obj_tup)
 
     return records_list
@@ -173,6 +176,28 @@ def update_startlist_records(startlist_id, data=None):
             print("Record modified")
 
     return True
+
+
+def parse_request_form(request_form):
+
+    result = dict()
+
+    empty_dic = {"round": None, "position": None}
+
+    for key, value in request_form.items():
+        value_type, record_id = key.split("_")
+        try:
+            print("A {} -> {} -> {}".format(record_id, value_type, value))
+            result[record_id][value_type] = value
+            print(result)
+
+        except KeyError:
+            print("B {} -> {} -> {}".format(record_id, value_type, value))
+            result[record_id] = empty_dic
+            result[record_id][value_type] = value
+            print(result)
+
+    return result
 
 # Note used
 def startlist_to_json(startlist_id):

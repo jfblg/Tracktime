@@ -70,7 +70,14 @@ def startlist_one_edit():
 @startlist_blueprint.route('/startlist_one_edit_save', methods=['POST'])
 def startlist_one_edit_save():
     startlist_id = session['startlist_id']
-    startlist_processing.update_startlist_records(startlist_id)
+    print("Session: {}".format(startlist_id))
+    print()
+    # startlist_processing.update_startlist_records(startlist_id)
+    # for record, value in request.form.items():
+    #     print("{} - {}".format(record, value))
+
+    result = startlist_processing.parse_request_form(request.form)
+    print(result)
 
     return redirect(url_for('startlist.startlist_menu_edit'))
 
