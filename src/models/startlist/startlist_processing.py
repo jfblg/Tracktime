@@ -165,11 +165,13 @@ def update_startlist_records(startlist_id, data=None):
     stlist_records = [starlist_instance
                       for starlist_instance, participant_instance
                       in StartlistModel.get_records_by_startlist_id(startlist_id)]
+
     for record in stlist_records:
-        if record.start_round == 5 and record.start_position == 1:
-            record.start_position = 2
+        if record.start_round == 5 and record.start_position == 2:
+            record.start_position = 1
             record.save_to_db()
             print("Record modified")
+
     return True
 
 # Note used
