@@ -31,7 +31,7 @@ class StartlistNameModel(db.Model):
             "id": self.id,
             "name": self.name,
             "startline_count": self.startline_count,
-            "rounds": self.startlist_rounds
+            "startlist_rounds": self.startlist_rounds
 
         }
 

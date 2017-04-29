@@ -1,6 +1,8 @@
+import json
+from pprint import pprint
+
 from sqlalchemy import exc
 from wtforms import Form, IntegerField, StringField, validators
-
 from src.models.categories.categories import CategoryModel
 from src.models.participants.participants import ParticipantModel
 from src.models.startlist.startlist import StartlistModel, StartlistNameModel
@@ -152,6 +154,57 @@ def startlist_generate(startlist_id):
 
 def startlist_generate_length(startlist_id):
     return len(startlist_generate(startlist_id))
+
+
+def startlist_get_rounds_lines(startlist_id):
+    startlist_instance = StartlistNameModel.get_by_id(startlist_id).json()
+    return startlist_instance['startlist_rounds'], startlist_instance['startline_count']
+
+
+def update_startlist_records(startlist_id, data=None):
+    stlist_records = [starlist_instance
+                      for starlist_instance, participant_instance
+                      in StartlistModel.get_records_by_startlist_id(startlist_id)]
+    for record in stlist_records:
+        if record.start_round == 5 and record.start_position == 1:
+            record.start_position = 2
+            record.save_to_db()
+            print("Record modified")
+    return True
+
+# Note used
+def startlist_to_json(startlist_id):
+    ''' For editing of the start_round and start_position
+    {
+      "data": [
+        {
+          "row_id": "row_1",
+          "first_name": "Tiger",
+          "last_name": "Nixon",
+          "start_round": "System Architect",
+          "start_position": "t.nixon@datatables.net",
+        },
+      ]
+    }
+    '''
+    result = dict()
+    result['data'] = []
+    stlist_records = StartlistModel.get_records_by_startlist_id(startlist_id)
+
+    for ST, PT in stlist_records:
+        record = dict()
+        record['row_id'] = ST.id
+        record['first_name'] = PT.first_name
+        record['last_name'] = PT.last_name
+        record['start_round'] = ST.start_round
+        record['start_position'] = ST.start_position
+        result['data'].append(record)
+
+    # pprint(json.dumps(result))
+    print("Loaded from AJAX")
+
+    return json.dumps(result)
+
 
 
 def get_startlist_all_frontend():

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
+
 <div class="container">
 
     <div class="page-header">
@@ -9,7 +10,8 @@
 
     <div class="row">
         <div class="dataTable_wrapper">
-            <table class="table table-striped table-bordered table-hover">
+
+            <table id="table-edit" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>Vorname</th>
@@ -17,24 +19,36 @@
                     <th>Runde</th>
                     <th>Start Position</th>
                 </tr>
+
                 </thead>
                 <tbody>
                 {% for last_name, first_name, start_round, start_position in data %}
-                {% if start_position == 1 and loop.index == length %}
-                <tr class="danger">
-                    <td>{{ last_name }}</td>
-                    <td>{{ first_name }}</td>
-                    <td>{{ start_round }}</td>
-                    <td>{{ start_position }}</td>
-                </tr>
-                {% else %}
                 <tr>
                     <td>{{ last_name }}</td>
                     <td>{{ first_name }}</td>
-                    <td>{{ start_round }}</td>
-                    <td>{{ start_position }}</td>
+
+                    <td>
+                        <select name="round_{{ loop.index0 }}" id="round_{{ loop.index0 }}">
+                            {% for _ in range(rounds) %}
+                                {% if loop.index == start_round %}
+                                    <option value="{{ loop.index }}" selected="selected">{{ loop.index }}</option>
+                                {% else %}
+                                    <option value="{{ loop.index }}">{{ loop.index }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="position_{{ loop.index0 }}" id="position_{{ loop.index0 }}">
+                            {% for _ in range(line_count) %}
+                                {% if loop.index == start_position %}
+                                    <option value="{{ loop.index }}" selected="selected">{{ loop.index }}</option>
+                                {% else %}
+                                    <option value="{{ loop.index }}">{{ loop.index }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
                 </tr>
-                {% endif %}
                 {% endfor %}
                 </tbody>
             </table>

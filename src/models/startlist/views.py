@@ -50,15 +50,24 @@ def startlist_menu_edit():
 @startlist_blueprint.route('/startlist_one_edit', methods=['POST'])
 def startlist_one_edit():
     startlist_id = request.form['startlist_select']
-    startlist_instance = StartlistNameModel.get_by_id(startlist_id)
 
+    # for AJAX
+    session['startlist_id'] = startlist_id
+
+    startlist_instance = StartlistNameModel.get_by_id(startlist_id)
     output_list = startlist_processing.startlist_generate(startlist_id)
     output_length = startlist_processing.startlist_generate_length(startlist_id)
+    rounds, line_count = startlist_processing.startlist_get_rounds_lines(startlist_id)
+
+    # toto daj do samostatnej POST funkcie
+    startlist_processing.update_startlist_records(startlist_id)
 
     return render_template('startlist/startlist_one_edit.html',
                            startlist_name=startlist_instance.name,
                            data=output_list,
-                           length=output_length)
+                           length=output_length,
+                           rounds=rounds,
+                           line_count=line_count)
 
 
 @startlist_blueprint.route('/next', methods=['GET', 'POST'])
