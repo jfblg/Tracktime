@@ -9,8 +9,6 @@ from src.models.categories.categories import CategoryModel
 from src.models.participants.participants import ParticipantModel
 from src.models.startlist.startlist import StartlistModel, StartlistNameModel
 
-EditRecord = namedtuple("EditRecord", "round position")
-
 def main():
     pass
 
@@ -164,40 +162,61 @@ def startlist_get_rounds_lines(startlist_id):
     return startlist_instance['startlist_rounds'], startlist_instance['startline_count']
 
 
-def update_startlist_records(startlist_id, data=None):
+def update_startlist_records(startlist_id, new_data=None):
     stlist_records = [starlist_instance
                       for starlist_instance, participant_instance
                       in StartlistModel.get_records_by_startlist_id(startlist_id)]
 
-    for record in stlist_records:
-        if record.start_round == 5 and record.start_position == 2:
-            record.start_position = 1
-            record.save_to_db()
-            print("Record modified")
+    stlist_record_ids = [record.id for record in stlist_records]
+
+    for new_id, new_value in new_data.items():
+        changed_flag = False
+        current_record = get_startlist_object_by_id(stlist_records, new_id)
+        if current_record is not False:
+            if int(new_id) in stlist_record_ids:
+                if current_record.start_position != new_value['position']:
+                    current_record.start_position = new_value['position']
+                    changed_flag = True
+                if current_record.start_round != new_value['round']:
+                    current_record.start_round = new_value['round']
+                    changed_flag = True
+            if changed_flag:
+                current_record.save_to_db()
 
     return True
 
+
+def get_startlist_object_by_id(object_field, requested_id):
+    for record in object_field:
+        print(record.id)
+        if str(record.id) == requested_id:
+            return record
+
+    return False
 
 def parse_request_form(request_form):
 
     result = dict()
 
-    empty_dic = {"round": None, "position": None}
-
     for key, value in request_form.items():
         value_type, record_id = key.split("_")
         try:
-            print("A {} -> {} -> {}".format(record_id, value_type, value))
-            result[record_id][value_type] = value
-            print(result)
+            # print("A {} -> {} -> {}".format(record_id, value_type, value))
+            result[record_id][value_type] = int(value)
+            # print(result)
 
         except KeyError:
-            print("B {} -> {} -> {}".format(record_id, value_type, value))
-            result[record_id] = empty_dic
-            result[record_id][value_type] = value
-            print(result)
+            # print("B {} -> {} -> {}".format(record_id, value_type, value))
+            result[record_id] = create_empty_dict()
+            result[record_id][value_type] = int(value)
+            # print(result)
 
     return result
+
+
+def create_empty_dict():
+    return {"round": None, "position": None}
+
 
 # Note used
 def startlist_to_json(startlist_id):
