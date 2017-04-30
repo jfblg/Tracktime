@@ -80,20 +80,15 @@ def startlist_one_edit_save():
 def next_round():
 
     if request.method == "POST":
-        received_values = []
-        for index in range(0, len(session['random_times'])):
-            received_values.append(request.form[str(index)])
-
-        received_values = [int(value) for value in received_values]
 
         # Note: Verification if the received values are unique.
         # There cannot be 2 times assigned to the same starting line
-        received_values_set = set(received_values)
-        if len(received_values_set) != len(received_values):
+        if startlist_processing.wizard_input_verification(request.form) is False:
+            # used to let the 'startlist.wizard' know, which template should be generated
             session['wrong_entry'] = 1
             return redirect(url_for('startlist.wizard'))
 
-        results_possition = dict(zip(received_values, session['random_times']))
+        results_possition = startlist_processing.wizard_process_received_form(request.form)
 
         results_id = []
         for _, _, start_position, _, startlist_id in session['startlist_round']:
@@ -201,7 +196,8 @@ def wizard():
                 startlist=startlist_round,
                 progress_now=progress_now_int,
                 startlist_lines=startlist_lines,
-                random_times=db_times_ext
+                random_times=db_times_ext,
+                rounds_count=startlist_instance.startlist_rounds
             )
 
     except KeyError:
@@ -213,7 +209,8 @@ def wizard():
         startlist=startlist_round,
         progress_now=progress_now_int,
         startlist_lines=startlist_lines,
-        random_times=db_times_ext
+        random_times=db_times_ext,
+        rounds_count=startlist_instance.startlist_rounds
     )
 
 

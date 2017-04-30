@@ -5,7 +5,7 @@
 
     <div class="row">
         <h3>Name: {{ name }}</h3>
-        <h3>Current Round: {{ session['counter'] }}</h3>
+        <h3>Current Round: {{ session['counter'] }} / {{ rounds_count }}</h3>
     </div>
     <div class="row">
         <p><b>Progress (in the whole startlist):</b></p>
@@ -50,13 +50,36 @@
                         <ul class="list-group">
                             <li class="list-group-item">
 
-                                <h3>Time {{ loop.index }}: <span class="label label-danger">{{ random_t }}</span></h3>
-                                Assigne to the line:
-                                <select name="{{ loop.index0 }}" id="{{ loop.index0 }}">
-                                    {% for _ in random_times %}
-                                    <option value="{{ loop.index }}">{{ loop.index }}</option>
-                                    {% endfor %}
-                                </select>
+                                <!--<h3>Time {{ loop.index }}: <span class="label label-danger">{{ random_t }}</span></h3>-->
+                                <div class="row">
+                                    <div class="form-group form-group-lg">
+
+                                        <label class="col-sm-6 control-label">
+                                            <h4>Time {{ loop.index }}:</h4>
+                                        </label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text" id="time_{{ loop.index }}"
+                                                   name="time_{{ loop.index }}"
+                                                   value="{{ random_t }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group form-group-lg">
+                                        <label class="col-sm-6 control-label">
+                                            <h4>Select line:</h4>
+                                        </label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control" name="line_{{ loop.index }}"
+                                                    id="line_{{ loop.index}}">
+                                                {% for _ in random_times %}
+                                                <option value="time_{{ loop.index }}">{{ loop.index }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </li>
                         </ul>
                         {% endfor %}
@@ -108,7 +131,7 @@
                 <span class="glyphicon glyphicon-arrow-right"></span>
             </button>
             <div class="panel">
-        </div>
+            </div>
         </div>
 
     </form>

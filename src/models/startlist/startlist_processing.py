@@ -109,7 +109,12 @@ def result_list_generate(startlist_id):
     for st, pt in result_records:
 
         # Note: 2 decimal digits are displayed for times in results
-        display_time = str(st.time_measured)[2:-4]
+        time_in_str = str(st.time_measured)
+        time_format_length = len(time_in_str)
+        if time_format_length == 7:
+            display_time = "{}.00".format(time_in_str[2:])
+        else:
+            display_time = str(st.time_measured)[2:-4]
 
         # Note: Leading zeroes are stripped away
         # if display_time.startswith("00:0"):
@@ -216,6 +221,26 @@ def parse_request_form(request_form):
 
 def create_empty_dict():
     return {"round": None, "position": None}
+
+
+def wizard_input_verification(form):
+    """ Verification, if the entered lines are unique. Used during time measure wizard.
+    """
+    lines = [value for key, value in form.items() if key.startswith("line")]
+    # if the entered lines are unique, they will have the same value
+    if len(lines) != len(set(lines)):
+        return False
+    else:
+        return True
+
+
+def wizard_process_received_form(form):
+    """ Processing of form received during the time measure
+    Expected result example: {1: '00:43.42', 2: '00:41.35', 3: '00:39.14', 4: '00:27.54'}
+    """
+    lines = {key.split('_')[1]: value.split('_')[1] for key, value in form.items() if key.startswith("line")}
+    times = {key.split('_')[1]: value for key, value in form.items() if key.startswith("time")}
+    return {int(key): times[value] for key, value in lines.items()}
 
 
 # Note used
