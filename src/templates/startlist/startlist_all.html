@@ -21,7 +21,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for last_name, first_name, start_round, start_position in data[startlist] %}
+                {% for id, last_name, first_name, start_round, start_position in data[startlist] %}
                 {% if start_position == 1 and loop.index == length[startlist] %}
                 <tr class="danger">
                     <td>{{ last_name }}</td>
