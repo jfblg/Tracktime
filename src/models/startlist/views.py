@@ -4,6 +4,7 @@ from src.models.startlist.startlist import StartlistModel, StartlistNameModel
 from src.models.timedb.timedb import TimeDbModel
 from src.models.timedb.timydb import TimyDbModel
 import src.models.startlist.startlist_processing as startlist_processing
+import src.models.startlist.startlist_alg as startlist_alg
 from sqlalchemy import Time
 
 import time
@@ -362,6 +363,11 @@ def generate_startlist_classfication():
 
         # removing Participant objects from a tuples
         startlist_finished_only_results_ordered = [startlist_record for startlist_record, _ in startlist_finished_results_ordered]
+
+        # In case there is only one classification run, the records are re-ordered so that the fasterst
+        # athletes are placed in the middle of the start field.
+        if startlist_top_times <= int(startlist_lines):
+            startlist_finished_only_results_ordered = startlist_alg.order_from_the_middle(startlist_finished_only_results_ordered)
 
         # generating new startlist record instances, startline numbers and rounds assignment
         new_startlist.startlist_rounds = startlist_processing.process_classification(
