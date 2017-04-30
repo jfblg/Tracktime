@@ -144,7 +144,7 @@ def get_startlist_instances():
 def startlist_generate(startlist_id):
 
     records_list = []
-    stlist_records = StartlistModel.get_records_by_startlist_id(startlist_id)
+    stlist_records = StartlistModel.get_records_by_startlist_id_order_by_round_position(startlist_id)
 
     for ST, PT in stlist_records:
         save_obj_tup = (ST.id, PT.last_name, PT.first_name, ST.start_round, ST.start_position)

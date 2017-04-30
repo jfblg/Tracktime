@@ -135,6 +135,17 @@ class StartlistModel(db.Model):
                 order_by(StartlistModel.id).\
                 all()
 
+
+    @classmethod
+    def get_records_by_startlist_id_order_by_round_position(cls, startlist_name_id):
+        return db.session.query(StartlistModel, ParticipantModel). \
+            filter(StartlistModel.participant_id == ParticipantModel.id). \
+            filter(StartlistModel.startlist_id == startlist_name_id). \
+            order_by(StartlistModel.start_round). \
+            order_by(StartlistModel.start_position). \
+            all()
+
+
     @classmethod
     def get_records_by_startlist_id_and_round_number(cls, startlist_name_id, round_number):
         return db.session.query(StartlistModel, ParticipantModel). \
