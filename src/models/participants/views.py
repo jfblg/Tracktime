@@ -15,22 +15,19 @@ def add():
     if request.method == 'POST' and form.validate():
         first_name = request.form['first_name'].strip()
         last_name = request.form['last_name'].strip()
-        email_addr = request.form['email_addr'].strip()
         gender = request.form['gender'].strip()
         year = request.form['year'].strip()
 
         runner = ParticipantModel(first_name=first_name.title(),
                                   last_name=last_name.title(),
                                   gender=gender.lower(),
-                                  year=year,
-                                  email_addr=email_addr.lower())
+                                  year=year,)
         runner.save_to_db()
         return render_template('participants/signup_success.html',
                                 first_name=runner.first_name,
                                 last_name=runner.last_name,
                                 gender = runner.gender,
                                 year=runner.year,
-                                email_addr=runner.email_addr,
                                 form=form)
 
     return render_template('participants/signup.html', form=form)
@@ -39,6 +36,7 @@ def add():
 @participants_blueprint.route('/list', methods=['GET', 'POST'])
 def list():
 
+    # Not used at the moment
     if request.method == 'POST':
         year_filter = request.form['year'].strip()
         if year_filter != "":

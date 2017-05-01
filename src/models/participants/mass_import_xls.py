@@ -32,7 +32,7 @@ class MassImport:
         for row_idx in range(1, xl_sheet.nrows):
             values = [item.value for item in xl_sheet.row(row_idx)]
             # converting year from float to int
-            values[2] = int(values[2])
+            values[3] = int(values[3])
             values = dict(zip(keys, values))
             loaded_data.append(values)
 
