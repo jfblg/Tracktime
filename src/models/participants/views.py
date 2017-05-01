@@ -1,16 +1,20 @@
+import os
+from src.config import UPLOAD_FOLDER_NAME
 from flask import Blueprint, request, render_template, sessions, redirect, url_for
 from src.models.participants.participants import ParticipantModel, RunnerRegistrationForm
 from src.models.participants.mass_import_xls import MassImport
+from werkzeug.utils import secure_filename
 
 # Not all imports from above are actually used.
 # They are listed for your reference.
 
 participants_blueprint = Blueprint("participants", __name__)
 
+UPLOAD_FOLDER = '/path/to/the/uploads'
+
 
 @participants_blueprint.route('/add', methods=['GET', 'POST'])
 def add():
-
     form = RunnerRegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
         first_name = request.form['first_name'].strip()
@@ -21,21 +25,20 @@ def add():
         runner = ParticipantModel(first_name=first_name.title(),
                                   last_name=last_name.title(),
                                   gender=gender.lower(),
-                                  year=year,)
+                                  year=year, )
         runner.save_to_db()
         return render_template('participants/signup_success.html',
-                                first_name=runner.first_name,
-                                last_name=runner.last_name,
-                                gender = runner.gender,
-                                year=runner.year,
-                                form=form)
+                               first_name=runner.first_name,
+                               last_name=runner.last_name,
+                               gender=runner.gender,
+                               year=runner.year,
+                               form=form)
 
     return render_template('participants/signup.html', form=form)
 
 
 @participants_blueprint.route('/list', methods=['GET', 'POST'])
 def list():
-
     # Not used at the moment
     if request.method == 'POST':
         year_filter = request.form['year'].strip()
@@ -59,17 +62,33 @@ def mass_import():
 
     if request.method == 'POST':
 
-        import_file_path = request.form['path'].strip()
+        print(request.files['InputFile'])
 
-        # if no path specified
-        if import_file_path == "":
+        # check if the post request has the file part
+        if 'InputFile' not in request.files:
             return render_template('participants/mass_import.html')
 
-        if MassImport.insert_many(import_file_path):
-            # success import
-            return render_template('participants/mass_import_success.html')
-        else:
-            # invalid file path
-            return render_template('participants/mass_import_invalid_path.html')
+        file = request.files['InputFile']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            return render_template('participants/mass_import_no_file_selected.html')
+
+        if file and MassImport.allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filefolder = os.path.join(os.path.dirname(os.getcwd()), UPLOAD_FOLDER_NAME)
+            abs_path = os.path.join(filefolder, filename)
+            file.save(abs_path)
+
+            if MassImport.insert_many(abs_path):
+                # success import
+                return render_template('participants/mass_import_success.html')
+            else:
+                # invalid file path
+                return render_template('participants/mass_import_failed.html')
+
+    return render_template('participants/mass_import.html')
+
+
 
     return render_template('participants/mass_import.html')

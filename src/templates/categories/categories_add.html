@@ -10,37 +10,40 @@
                 <h2>Add new category</h2>
             </div>
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Add new category
+            <div class="col-sm-6">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Add new category
+                    </div>
+                    <div class="panel-body">
+
+                        {% from "categories/_formhelpers.html" import render_field %}
+                        <form method="post">
+                            {{ render_field(form.category_name) }}
+
+                            <div class="form-group">
+                                <label>
+                                    <b>Gender</b>
+                                </label>
+                                <select class="form-control" name="gender" id="gender">
+                                    <option value="boy" selected="selected">Boy</option>
+                                    <option value="girl">Girl</option>
+                                </select>
+                            </div>
+
+                            {{ render_field(form.year_start) }}
+                            {{ render_field(form.year_end) }}
+
+                            <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Add</button>
+                            <a type="reset" class="btn btn-danger" href="{{ url_for('categories.add') }}"><span
+                                    class="glyphicon glyphicon-erase"></span> Cancel</a>
+                        </form>
+                    </div>
+                    <!-- panel body-->
                 </div>
-                <div class="panel-body">
-
-                    {% from "categories/_formhelpers.html" import render_field %}
-                    <form method="post">
-                        {{ render_field(form.category_name) }}
-                        
-                        <div class="form-group">
-                            <label>
-                                <b>Gender</b>
-                            </label>
-                            <select class="form-control" name="gender" id="gender">
-                                <option value="boy" selected="selected">Boy</option>
-                                <option value="girl">Girl</option>
-                            </select>
-                        </div>
-
-                        {{ render_field(form.year_start) }}
-                        {{ render_field(form.year_end) }}
-
-                        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Add</button>
-                        <a type="reset" class="btn btn-danger" href="{{ url_for('categories.add') }}"><span
-                                class="glyphicon glyphicon-erase"></span> Cancel</a>
-                    </form>
-                </div>
-                <!-- panel body-->
+                <!-- panel -->
             </div>
-            <!-- panel -->
         </div>
         <!-- row -->
         {% block success %}

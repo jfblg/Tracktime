@@ -1,4 +1,5 @@
 import os
+from src.config import *
 
 from threading import Thread
 # TODO how to run while loop and Flask at the same time?
@@ -11,6 +12,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///timetrack.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = "justSom3Kei"
+
+app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.getcwd()), UPLOAD_FOLDER_NAME)
 
 @app.before_first_request
 def create_table():

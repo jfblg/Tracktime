@@ -6,31 +6,38 @@
     <div class="row">
 
         <div class="page-header">
-        <h2>Mass Import <small> from a XLS file.</small></h2>
+            <h2>Mass Import
+                <small> from a file.</small>
+            </h2>
         </div>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Specify path to the XLS file.
-            </div>
-            <div class="panel-body">
+        <div class="col-sm-6">
 
-                <form method="post">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Choose a file on your system.
+                </div>
+                <div class="panel-body">
 
-                    <div class="form-group">
-                            <label>Path</label>
-                            <input type="text" class="form-control" id="path" name="path">
-                            <p class="help-block">Unix format: /Users/ferojanus/Desktop/tracktime/registered.xlsx</p>
+                    <form method="post" enctype="multipart/form-data">
+
+                        <div class="form-group">
+                            <label for="InputFile">Select file</label>
+                            <input type="file" id="InputFile" name="InputFile" >
+                            <p class="help-block">Supported formats: .xls, .xlsx, .csv</p>
                         </div>
 
-                    <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Upload</button>
-                    <a type="reset" class="btn btn-danger" href="{{ url_for('participants.mass_import') }}"><span
-                            class="glyphicon glyphicon-erase"></span> Clear all</a>
-                </form>
+                        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span>
+                            <span class="glyphicon glyphicon-open"></span> Upload
+                        </button>
+                        <a type="reset" class="btn btn-danger" href="{{ url_for('participants.mass_import') }}">
+                            <span class="glyphicon glyphicon-erase"></span> Cancel</a>
+                    </form>
+                </div>
+                <!-- panel body-->
             </div>
-            <!-- panel body-->
+            <!-- panel -->
         </div>
-        <!-- panel -->
 
     </div>
     <!-- row -->

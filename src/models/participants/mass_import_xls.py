@@ -1,4 +1,5 @@
 import xlrd
+from os import remove
 from os.path import join, abspath, dirname, isfile
 from src.models.participants.participants import ParticipantModel
 
@@ -15,6 +16,7 @@ class MassImport:
             for item in loaded_data:
                 record = ParticipantModel(**item)
                 record.save_to_db()
+            remove(path_to_file)
             return True
         else:
             return False
@@ -37,3 +39,8 @@ class MassImport:
             loaded_data.append(values)
 
         return loaded_data
+
+    @staticmethod
+    def allowed_file(filename):
+        return '.' in filename and \
+               filename.rsplit('.', 1)[1].lower() in ['csv', 'xls', 'xlsx']
