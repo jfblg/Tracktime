@@ -18,7 +18,7 @@ def add():
     if request.method == 'POST' and form.validate():
         input_data = dict()
         input_data['category_name'] = request.form['category_name'].strip()
-        input_data['gender'] = request.form['gender'].strip()
+        input_data['gender'] = request.form['gender']
         input_data['year_start'] = request.form['year_start'].strip()
         input_data['year_end'] = request.form['year_end'].strip()
 

@@ -15,7 +15,7 @@ def add():
     if request.method == 'POST' and form.validate():
         first_name = request.form['first_name'].strip()
         last_name = request.form['last_name'].strip()
-        gender = request.form['gender'].strip()
+        gender = request.form['gender']
         year = request.form['year'].strip()
 
         runner = ParticipantModel(first_name=first_name.title(),

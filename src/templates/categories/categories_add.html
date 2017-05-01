@@ -19,7 +19,17 @@
                     {% from "categories/_formhelpers.html" import render_field %}
                     <form method="post">
                         {{ render_field(form.category_name) }}
-                        {{ render_field(form.gender) }}
+                        
+                        <div class="form-group">
+                            <label>
+                                <b>Gender</b>
+                            </label>
+                            <select class="form-control" name="gender" id="gender">
+                                <option value="boy" selected="selected">Boy</option>
+                                <option value="girl">Girl</option>
+                            </select>
+                        </div>
+
                         {{ render_field(form.year_start) }}
                         {{ render_field(form.year_end) }}
 
