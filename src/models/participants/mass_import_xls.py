@@ -2,11 +2,6 @@ import xlrd
 from os.path import join, abspath, dirname, isfile
 from src.models.participants.participants import ParticipantModel
 
-WB = "registered.xlsx"
-
-def main():
-   loaded_data = read_wb(WB)
-
 
 class MassImport:
 
@@ -20,22 +15,15 @@ class MassImport:
             for item in loaded_data:
                 record = ParticipantModel(**item)
                 record.save_to_db()
-                # print(record.json())
             return True
         else:
             return False
-
-    # Not used at the moment
-    @staticmethod
-    def xls_path():
-        app_root_folder = dirname(dirname(dirname(dirname(abspath(__file__)))))
-        return join(app_root_folder, 'sample_data', WB)
 
     @staticmethod
     def read_wb(wb_path):
         """Load participants data from xls data
         """
-        keys = "first_name last_name year gender email_addr".split(" ")
+        keys = "first_name last_name gender year".split(" ")
         loaded_data = []
 
         xl_workbook = xlrd.open_workbook(wb_path)
@@ -49,7 +37,3 @@ class MassImport:
             loaded_data.append(values)
 
         return loaded_data
-
-
-if __name__ == "__main__":
-    main()

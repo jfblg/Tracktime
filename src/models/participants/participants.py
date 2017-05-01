@@ -1,7 +1,6 @@
 from wtforms import Form, BooleanField, IntegerField, StringField, PasswordField, validators
 from wtforms.fields.html5 import EmailField
 
-
 from src.common.database import db
 from sqlalchemy import exc
 
@@ -13,11 +12,6 @@ class RunnerRegistrationForm(Form):
 
     last_name = StringField('Last name', [
         validators.Length(min=2, max=25)])
-
-
-    email_addr = EmailField('Email address',[
-        validators.Length(min=6, max=35),
-        validators.data_required(message="Required")])
 
     gender = StringField('Gender', [
         validators.Length(min=2, max=6),
@@ -34,7 +28,6 @@ class ParticipantModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
-    email_addr = db.Column(db.String(100), nullable=False)
     gender = db.Column(db.String(6), nullable=False)
     year = db.Column(db.Integer, nullable=False)
 
@@ -45,12 +38,11 @@ class ParticipantModel(db.Model):
     __table_args__ = (db.UniqueConstraint('first_name', 'last_name', 'year'),)
 
 
-    def __init__(self, first_name, last_name, gender, year, email_addr):
+    def __init__(self, first_name, last_name, gender, year):
         self.first_name = first_name
         self.last_name = last_name
         self.gender = gender
         self.year = int(year)
-        self.email_addr = email_addr
 
     def json(self):
         return {
@@ -58,7 +50,6 @@ class ParticipantModel(db.Model):
                 "last_name": self.last_name,
                 "gender": self.gender,
                 "year": self.year,
-                "email_addr": self.email_addr
                 }
 
     @classmethod
@@ -91,5 +82,3 @@ class ParticipantModel(db.Model):
     @classmethod
     def list_all(cls):
         return cls.query.all()
-
-
