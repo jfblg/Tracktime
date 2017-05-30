@@ -6,19 +6,19 @@ from src.common.database import db
 
 class CategoryAddForm(Form):
     category_name = StringField('Category name', [
-        validators.Length(min=1, max=20),
+        validators.Length(min=1, max=40),
         validators.DataRequired(message="Required")])
 
     gender = StringField('Gender', [
-        validators.Length(min=2, max=6),
+        validators.Length(min=2, max=10),
         validators.data_required(message="Required")])
 
     year_start = IntegerField('Start year', [
-        validators.NumberRange(min=1917, max=2017),
+        validators.NumberRange(min=1917, max=2099),
         validators.data_required(message="Required. Please specify number between 1917 and 2017.")])
 
     year_end = IntegerField('End year', [
-        validators.NumberRange(min=1917, max=2017),
+        validators.NumberRange(min=1917, max=2099),
         validators.data_required(message="Required. Please specify number between 1917 and 2017.")])
 
 

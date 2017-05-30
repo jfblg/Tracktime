@@ -62,8 +62,6 @@ def mass_import():
 
     if request.method == 'POST':
 
-        print(request.files['InputFile'])
-
         # check if the post request has the file part
         if 'InputFile' not in request.files:
             return render_template('participants/mass_import.html')
@@ -89,6 +87,3 @@ def mass_import():
 
     return render_template('participants/mass_import.html')
 
-
-
-    return render_template('participants/mass_import.html')
