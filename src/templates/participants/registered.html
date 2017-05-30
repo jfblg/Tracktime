@@ -22,7 +22,13 @@
                 <tr>
                     <td>{{ item['last_name'] }}</td>
                     <td>{{ item['first_name'] }}</td>
-                    <td>{{ item['gender'] }}</td>
+                    {% if item['gender'] == "boy" %}
+                        <td>Knabe</td>
+                    {% elif item['gender'] == "girl" %}
+                        <td>Mädchen</td>
+                    {% else %}
+                        {{ item['gender'] }}
+                    {% endif %}
                     <td>{{ item['year'] }}</td>
                 </tr>
                 {% endfor %}

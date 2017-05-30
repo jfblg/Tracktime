@@ -21,7 +21,13 @@
             {% for item in data %}
             <tr>
                 <td>{{ item['category_name'] }}</td>
-                <td>{{ item['gender'] }}</td>
+                {% if item['gender'] == "boy" %}
+                        <td>Knaben</td>
+                    {% elif item['gender'] == "girl" %}
+                        <td>Mädchen</td>
+                    {% else %}
+                        {{ item['gender'] }}
+                    {% endif %}
                 <td>{{ item['year_start'] }}</td>
                 <td>{{ item['year_end'] }}</td>
             </tr>
