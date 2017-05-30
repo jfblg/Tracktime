@@ -11,13 +11,28 @@
             </h2>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-8">
 
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Choose a file on your system.
                 </div>
                 <div class="panel-body">
+
+                    <h3>Mass Import Instructions</h3>
+                    <ul>
+                        <li>File must be in CSV, XLS or XLSX format</li>
+                        <li>Columns must be in the following order: fistname, lastname, gender, year of birth</li>
+                        <li>Gender must be either <b>boy</b> or <b>girl</b>. No other values are accepted</li>
+                        <li>First line in the file is considered to be a column header and it's <b>not imported</b>.</li>
+                    </ul>
+
+                    <h4>Example:</h4>
+
+                    <img src="{{ url_for('static', filename='pic/mass_import_example.png') }}" class="img-responsive" alt="Cinque Terre">
+                    <br><br>
+
+
 
                     <form method="post" enctype="multipart/form-data">
 
