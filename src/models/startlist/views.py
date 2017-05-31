@@ -98,7 +98,11 @@ def next_round():
 
         for startlist_id, time_measured in results_id:
             found_runner = StartlistModel.get_by_startlist_id(startlist_id)
-            found_runner.time_measured = convert_time_to_delta(time_measured)
+            try:
+                found_runner.time_measured = convert_time_to_delta(time_measured)
+            except ValueError:
+                session['wrong_entry'] = 2
+                return redirect(url_for('startlist.wizard'))
             found_runner.save_to_db()
 
     plus_session_counter()
@@ -192,14 +196,27 @@ def wizard():
             session['wrong_entry'] = 0
 
             return render_template(
-                'startlist/wizard_wrong_entry.html',
+                'startlist/wizard_wrong_lines_assigned.html',
                 name=startlist_instance.name,
                 startlist=startlist_round,
                 progress_now=progress_now_int,
                 startlist_lines=startlist_lines,
                 random_times=db_times_ext,
                 rounds_count=startlist_instance.startlist_rounds
-            )
+                )
+
+        if session['wrong_entry'] == 2:
+            session['wrong_entry'] = 0
+
+            return render_template(
+                'startlist/wizard_wrong_time_entered.html',
+                name=startlist_instance.name,
+                startlist=startlist_round,
+                progress_now=progress_now_int,
+                startlist_lines=startlist_lines,
+                random_times=db_times_ext,
+                rounds_count=startlist_instance.startlist_rounds
+                )
 
     except KeyError:
         pass
