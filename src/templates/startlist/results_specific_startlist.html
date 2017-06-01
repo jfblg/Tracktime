@@ -21,10 +21,17 @@
                 <tbody>
                 {% for last_name, first_name, time in data %}
                 <tr>
+                    {% if time == "59:59.59" %}
+                    <td>DNF</td>
+                    <td><i>{{ last_name }}</i></td>
+                    <td><i>{{ first_name }}</i></td>
+                    <td> -</td>
+                    {% else %}
                     <td>{{ loop.index }}</td>
                     <td>{{ last_name }}</td>
                     <td>{{ first_name }}</td>
                     <td>{{ time }}</td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
                 </tbody>

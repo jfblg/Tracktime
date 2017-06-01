@@ -103,7 +103,7 @@ def next_round():
             # he will then be assigned max time possible to enter
             # because of his high time, he will be also listed at the end in results.
 
-            if time_measured == "DNF":
+            if time_measured in "DNF dnf".split():
                 time_measured = "59:59.59"
 
             try:
