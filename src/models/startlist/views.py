@@ -98,6 +98,14 @@ def next_round():
 
         for startlist_id, time_measured in results_id:
             found_runner = StartlistModel.get_by_startlist_id(startlist_id)
+
+            # if an athlete doesn't finish, the DNF may be entered.
+            # he will then be assigned max time possible to enter
+            # because of his high time, he will be also listed at the end in results.
+
+            if time_measured == "DNF":
+                time_measured = "59:59.59"
+
             try:
                 found_runner.time_measured = convert_time_to_delta(time_measured)
             except ValueError:

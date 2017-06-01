@@ -226,6 +226,7 @@ def create_empty_dict():
 def wizard_input_verification(form):
     """ Verification, if the entered lines are unique. Used during time measure wizard.
     """
+    # Note,that key must start with line_..., other options are ignored, to allow DNF option to work
     lines = [value for key, value in form.items() if key.startswith("line")]
     # if the entered lines are unique, they will have the same value
     if len(lines) != len(set(lines)):
