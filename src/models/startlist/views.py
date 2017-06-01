@@ -386,8 +386,16 @@ def generate_startlist_classfication():
             [result for result in StartlistModel.get_records_by_startlist_id_order_by_time(startlist_finished_id)]\
             [:startlist_top_times]
 
+        print(startlist_finished_results_ordered)
+
         # removing Participant objects from a tuples
-        startlist_finished_only_results_ordered = [startlist_record for startlist_record, _ in startlist_finished_results_ordered]
+        # removing Participant objects from a tuples
+        # and also ignoring Athletes with the time 59:59.59 - datetime.timedelta(0, 3599, 590000)
+        # 59:59.59 means that an athletes is DNF. This form of time has been chosen for code simplicity.
+        # At the UZE sprinter event, it is impossible that an athlete will have such a time
+        startlist_finished_only_results_ordered = \
+            [startlist_record for startlist_record, _ in startlist_finished_results_ordered
+                if startlist_record.time_measured != datetime.timedelta(0, 3599, 590000)]
 
         # In case there is only one classification run, the records are re-ordered so that the fasterst
         # athletes are placed in the middle of the start field.
