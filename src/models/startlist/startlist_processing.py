@@ -240,8 +240,14 @@ def wizard_process_received_form(form):
     Expected result example: {1: '00:43.42', 2: '00:41.35', 3: '00:39.14', 4: '00:27.54'}
     """
     lines = {key.split('_')[1]: value.split('_')[1] for key, value in form.items() if key.startswith("line")}
+    print()
+    print(lines)
+    print()
     times = {key.split('_')[1]: value for key, value in form.items() if key.startswith("time")}
-    return {int(key): times[value] for key, value in lines.items()}
+    print()
+    print(times)
+    print()
+    return {int(value): times[key] for key, value in lines.items()}
 
 
 # Note used

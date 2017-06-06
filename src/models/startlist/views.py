@@ -91,12 +91,24 @@ def next_round():
 
         results_possition = startlist_processing.wizard_process_received_form(request.form)
 
+        print("Results tuple:")
+        print(results_possition)
+        print()
+
         results_id = []
         for _, _, start_position, _, startlist_id in session['startlist_round']:
+            print("Start position: {}".format(start_position))
+            print("Start startlist_id: {}".format(startlist_id))
+
             result_tuple = (startlist_id, results_possition[start_position])
             results_id.append(result_tuple)
 
+
+
         for startlist_id, time_measured in results_id:
+
+            print("ST.ID: {}  --- TIME: {}".format(startlist_id, time_measured))
+
             found_runner = StartlistModel.get_by_startlist_id(startlist_id)
 
             # if an athlete doesn't finish, the DNF may be entered.
@@ -108,10 +120,11 @@ def next_round():
 
             try:
                 found_runner.time_measured = convert_time_to_delta(time_measured)
+                found_runner.save_to_db()
             except ValueError:
                 session['wrong_entry'] = 2
                 return redirect(url_for('startlist.wizard'))
-            found_runner.save_to_db()
+
 
     plus_session_counter()
     return redirect(url_for('startlist.wizard'))
@@ -184,7 +197,7 @@ def wizard():
     startlist_lines = len(startlist_round)
 
     # not used at the moment
-    random_times = time_random(startlist_lines)
+    # random_times = time_random(startlist_lines)
 
     # loading of the times from old database
     # db_times = [str(item.time_measured)[2:-4] for item in TimeDbModel.list_all()][-startlist_lines:]
