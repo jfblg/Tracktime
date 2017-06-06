@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="result2">
+
+    <script type=text/javascript src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
+
+    <script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+
+
+    </script>
+
+    <div class="container">
+
+        <script type=text/javascript>
+  $(function() {
+    $('a#delete_participants').bind('click', function() {
+      $.getJSON($SCRIPT_ROOT + '/participants/_delete_participants', {
+      }, function(data) {
+        $("#message1").text(data.result);
+      });
+      return false;
+    });
+  });
+
+
+
+        </script>
+
+        <h1>Delete all participants</h1>
+
+        <p><span id=message1>
+        </span>
+
+        <p><a href=# id=delete_participants>Delete all participants</a>
+
+    </div>
+
+
+    <div class="container">
+
+        <script type=text/javascript>
+  $(function() {
+    $('a#delete_all').bind('click', function() {
+      $.getJSON($SCRIPT_ROOT + '/participants/_delete_all_data', {
+      }, function(data) {
+        $("#message2").text(data.result);
+      });
+      return false;
+    });
+  });
+
+
+        </script>
+
+        <h1>Delete all data</h1>
+
+        <p><span id=message2>
+        </span>
+
+        <p><a href=# id=delete_all>Delete all data</a>
+
+    </div>
+</div>
+
+
+{% endblock %}

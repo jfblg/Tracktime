@@ -67,10 +67,6 @@ class CategoryModel(db.Model):
         except exc.IntegrityError as e:
             db.session().rollback()
 
-    def delete_from_db(self):
-        db.session.delete(self)
-        db.session.commit()
-
     @classmethod
     def find_by_id(cls, category_id):
         return db.session.query(cls).filter_by(id=category_id).one()
@@ -84,5 +80,15 @@ class CategoryModel(db.Model):
     @classmethod
     def list_all(cls):
         return cls.query.all()
+
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    @classmethod
+    def delete_all_rows(cls):
+        all_rows = cls.list_all()
+        for row in all_rows:
+            row.delete_from_db()
 
 

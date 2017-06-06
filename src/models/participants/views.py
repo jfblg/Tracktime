@@ -1,7 +1,9 @@
 import os
 from src.config import UPLOAD_FOLDER_NAME
-from flask import Blueprint, request, render_template, sessions, redirect, url_for
+from flask import Blueprint, request, render_template, sessions, redirect, url_for, jsonify
 from src.models.participants.participants import ParticipantModel, RunnerRegistrationForm
+from src.models.startlist.startlist import StartlistModel, StartlistNameModel
+from src.models.categories.categories import CategoryModel
 from src.models.participants.mass_import_xls import MassImport
 from werkzeug.utils import secure_filename
 
@@ -87,3 +89,40 @@ def mass_import():
 
     return render_template('participants/mass_import.html')
 
+
+@participants_blueprint.route('/delete', methods=['GET', 'POST'])
+def delete_admin():
+    """
+    Page for deleting various parts of database
+    - Delete participants - including all startlists and results
+    - Delete categories
+    """
+    return render_template('participants/delete_admin.html')
+
+
+@participants_blueprint.route('/_delete_participants')
+def delete_participants():
+    """
+    Deletes all participants, startlists and results. Categories stay.
+    Function is called by a javascript/jquery
+    """
+    ParticipantModel.delete_all_rows()
+    StartlistModel.delete_all_rows()
+    StartlistNameModel.delete_all_rows()
+
+    message = "Deleted all participants, startlists and results"
+    return jsonify(result=message)
+
+@participants_blueprint.route('/_delete_all_data')
+def delete_all():
+    """
+    Deletes all participants, startlists and results and categories
+    Function is called by a javascript/jquery
+    """
+    ParticipantModel.delete_all_rows()
+    StartlistModel.delete_all_rows()
+    StartlistNameModel.delete_all_rows()
+    CategoryModel.delete_all_rows()
+
+    message = "Deleted all data from the Database"
+    return jsonify(result=message)
