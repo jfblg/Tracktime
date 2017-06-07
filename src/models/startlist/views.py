@@ -91,24 +91,20 @@ def next_round():
 
         results_possition = startlist_processing.wizard_process_received_form(request.form)
 
-        print("Results tuple:")
-        print(results_possition)
-        print()
+        # print("Results tuple:")
+        # print(results_possition)
+        # print()
 
         results_id = []
         for _, _, start_position, _, startlist_id in session['startlist_round']:
-            print("Start position: {}".format(start_position))
-            print("Start startlist_id: {}".format(startlist_id))
+            # print("Start position: {}".format(start_position))
+            # print("Start startlist_id: {}".format(startlist_id))
 
             result_tuple = (startlist_id, results_possition[start_position])
             results_id.append(result_tuple)
 
-
-
         for startlist_id, time_measured in results_id:
-
-            print("ST.ID: {}  --- TIME: {}".format(startlist_id, time_measured))
-
+            # print("ST.ID: {}  --- TIME: {}".format(startlist_id, time_measured))
             found_runner = StartlistModel.get_by_startlist_id(startlist_id)
 
             # if an athlete doesn't finish, the DNF may be entered.
@@ -124,7 +120,6 @@ def next_round():
             except ValueError:
                 session['wrong_entry'] = 2
                 return redirect(url_for('startlist.wizard'))
-
 
     plus_session_counter()
     return redirect(url_for('startlist.wizard'))

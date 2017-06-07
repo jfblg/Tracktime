@@ -5,7 +5,7 @@ table.print-format {
 }
 
 .table {
-  border: 2px solid #000000;
+  border: 2px solid #000000 !important;
 }
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
@@ -13,7 +13,7 @@ table.print-format {
 .table-bordered > thead > tr > td,
 .table-bordered > tbody > tr > td,
 .table-bordered > tfoot > tr > td {
-   border: 2px solid #000000;
+   border: 2px solid #000000 !important;
 }
 
 span.badge.pull-left {
