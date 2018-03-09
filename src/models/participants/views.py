@@ -4,7 +4,7 @@ from flask import Blueprint, request, render_template, sessions, redirect, url_f
 from src.models.participants.participants import ParticipantModel, RunnerRegistrationForm
 from src.models.startlist.startlist import StartlistModel, StartlistNameModel
 from src.models.categories.categories import CategoryModel
-from src.models.participants.mass_import_xls import MassImport
+from src.models.participants.mass_import import MassImport
 from werkzeug.utils import secure_filename
 
 # Not all imports from above are actually used.
