@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="page-header">
+        <h2>UZE-Sprinter 2018 Teilnehmer</h2>
+        <h2>Kategorie: ... </h2>
+        <img src="{{ url_for('static', filename='pic/lcuzwil_logo.png') }}" allign="left">
+    </div>
+    <div class="row">
+            <table class="pdftable">
+                <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Sex</th>
+                    <th>Year of birth</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in data %}
+                <tr>
+                    <td>{{ item[0] }}</td>
+                    <td>{{ item[1] }}</td>
+                    <td>{{ item[2] }}</td>
+                    <td>{{ item[3] }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+    </div>
+</div>
+<!-- /.table wrapper -->
+
+
+</body>
+</html>
